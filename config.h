@@ -65,8 +65,8 @@ static const Layout layouts[] = {
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
     { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
     { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-    { MODKEY|ControlMask|ShiftMask, KEY,      tag,      	  {.ui = 1 << TAG} }, \
-    { MODKEY|ControlMask|ShiftMask, KEY,      view,      	  {.ui = 1 << TAG} },
+    { MODKEY|Mod1Mask, KEY,      tag,      	  {.ui = 1 << TAG} }, \
+    { MODKEY|Mod1Mask, KEY,      view,      	  {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -142,6 +142,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
     { MODKEY,                       XK_d,       spawn,     	   SHCMD("song-select") },
     { MODKEY|ShiftMask,				XK_d,       spawn,     	   SHCMD("song-select a") },
+    { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
     { MODKEY,                       XK_Tab,       spawn,       SHCMD("wmctrl -l | dmenu | cut -d ' ' -f1 | xargs wmctrl -ia")},
     { MODKEY,                       XK_p,       spawn,     	   SHCMD("uninstall") },
