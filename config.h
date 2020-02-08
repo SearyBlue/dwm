@@ -28,7 +28,7 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
 
 static const Rule rules[] = {
 	/* class      	instance    title       tags mask    switch to tag   isfloating   monitor */
-	{ "firefox",  		NULL,       NULL,       1<<0,     	1,		  	0,           -1 },
+	{ "firefox", NULL, "Mozilla Firefox",       1<<0,     	1,		  	0,           -1 },
 	{ NULL,  	   NULL,  "Waterfox Current",   1<<0,     	1,		  	0,           -1 },
 	{ "St",  			"st",    "ranger",		1<<1,     	1,		  	0,           -1 },
 	{ "St",				"st",     "st",       	1<<2,     	1,		  	0,           -1 },
@@ -44,7 +44,9 @@ static const Rule rules[] = {
 	{ "mpv",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"Lxappearance",	NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"Gnuplot",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
+	{"St",				NULL,     "mocp",       NULL,      	NULL,	 	1,           -1 },
 	{NULL,		"gpartedbin",       NULL,       NULL,      	NULL,	 	1,           -1 },
+	{NULL,NULL, "Default (Linux).sublime-keymap - Sublime Text (UNREGISTERED)",       NULL,       NULL,      	NULL,	 	1,           -1 },
 };
 
 /* layout(s) */
@@ -106,9 +108,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_6,                      5)
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
 	{ MODKEY,                        XK_s,     spawn,       SHCMD("subl3") },
-    { MODKEY,                        XK_b,     spawn,       SHCMD("pgrep waterfox && wmctrl -x -a Waterfox || waterfox-current") },
+    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'Mozilla Firefox' || firefox") },
     { MODKEY,                        XK_z,     spawn,       SHCMD("wmctrl -x -a Zathura || open-book") },
-    { MODKEY,                        XK_l,     spawn,       SHCMD("pgrep libreoffice && wmctrl -a LibreOffice || libreoffice6.4 --quickstart --nologo") },
+    { MODKEY,                        XK_l,     spawn,       SHCMD("wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo") },
     { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
     { MODKEY|ShiftMask,              XK_e,     spawn,       SHCMD("st ranger") },
     { MODKEY,                        XK_t,        spawn,       SHCMD("wmctrl -lp | grep $(pgrep -fx 'st' | head -n 1) | awk '{print $1}' | xargs wmctrl -ia || st") },
@@ -118,11 +120,12 @@ static Key keys[] = {
     { MODKEY|ControlMask,            XK_j,        spawn,       SHCMD("mocp --seek -10") },
     { MODKEY|ShiftMask,				 XK_n,        spawn,       SHCMD("nmcli radio wifi | grep disable && nmcli radio wifi on || nmcli radio wifi off") },
     { NULL,                          XK_Print,    spawn,       SHCMD("gnome-screenshot -f /storage/pictures/$(date '+%F_%T').png") },
-    { MODKEY,                        XK_Print,    spawn,       SHCMD("gnome-screenshot -a -f /storage/pictures/$(date '+%F_%T').png") },
+    { MODKEY,                        XK_Print,    spawn,       SHCMD("name=/storage/pictures/$(date '+%F_%T').png; gnome-screenshot -a -f ${name} && pqiv ${name}") },
     { MODKEY,                        XK_i,        spawn,       SHCMD("subl3 -w ~/.config/dwm/config.h") },
     { MODKEY,                        XK_u,        spawn,       SHCMD("unmount") },
     { MODKEY|ShiftMask,				 XK_u,        spawn,       SHCMD("st -c float-term bash -ic \"hkp\"") },
-    { MODKEY|ShiftMask,				 XK_k,        spawn,       SHCMD("st -c float-term bash -ic \"cd $HOME/storage/music/ > /dev/null; xclip -o | xargs youtube-dl --extract-audio -i --audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
+    { MODKEY|ShiftMask,				 XK_k,        spawn,       SHCMD("st -c float-term bash -ic \"cd $HOME/storage/downloads/ > /dev/null; xclip -o | xargs youtube-dl --extract-audio -i --audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
+    { MODKEY|ControlMask,				 XK_k,        spawn,       SHCMD("st -c float-term bash -ic \"cd $HOME/storage/downloads/ > /dev/null; xclip -o | xargs youtube-dl -i && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
     { MODKEY,                        XK_g,        spawn,       SHCMD("wmctrl -Fa mutt || st -g 100x25+350+200 mutt") },
     { MODKEY,                        XK_m,        spawn,       SHCMD("mount-all") },
     { MODKEY,                        XK_r,        spawn,       SHCMD("subl3 ~/.config/ranger/rc.conf") },
@@ -142,6 +145,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
     { MODKEY,                       XK_d,       spawn,     	   SHCMD("song-select") },
     { MODKEY|ShiftMask,				XK_d,       spawn,     	   SHCMD("song-select a") },
+    { MODKEY,						XK_Home,    spawn,     	   SHCMD("st mocp") },
     { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
     { MODKEY,                       XK_Tab,       spawn,       SHCMD("wmctrl -l | dmenu | cut -d ' ' -f1 | xargs wmctrl -ia")},
