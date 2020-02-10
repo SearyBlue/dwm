@@ -46,6 +46,7 @@ static const Rule rules[] = {
 	{"Gnuplot",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"St",				NULL,     "mocp",       NULL,      	NULL,	 	1,           -1 },
 	{NULL,		"gpartedbin",       NULL,       NULL,      	NULL,	 	1,           -1 },
+	{"Nm-connection-editor", NULL,	NULL,		NULL,      	NULL,	 	1,           -1 },
 	{NULL,NULL, "Default (Linux).sublime-keymap - Sublime Text (UNREGISTERED)",       NULL,       NULL,      	NULL,	 	1,           -1 },
 };
 
