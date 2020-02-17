@@ -43,6 +43,7 @@ static const Rule rules[] = {
 	{NULL,       		NULL,        "mutt",  	NULL,      	NULL,	 	1,           -1 },
 	{NULL,       		NULL,        "qalc",  	NULL,      	NULL,	 	1,           -1 },
 	{ "Pqiv",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
+	{ "Mtpaint",		NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{ "mpv",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"Lxappearance",	NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"Gnuplot",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
@@ -59,8 +60,8 @@ static const int resizehints = 0;   /* 1 means respect size hints in tiled resiz
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "",      gaplessgrid },
 	{ "",      tile },    /* first entry is default */
+	{ "",      gaplessgrid },
 	{ "",      NULL },    /* no layout function means floating behavior */
 	{ "M",      monocle },};
 
