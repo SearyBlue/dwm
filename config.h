@@ -30,6 +30,8 @@ static const Rule rules[] = {
 	/* class      	instance    title       tags mask    switch to tag   isfloating   monitor */
 	{ "firefox", NULL, "Mozilla Firefox",       1<<0,     	1,		  	0,           -1 },
 	{ NULL,  	   NULL,  "Waterfox Current",   1<<0,     	1,		  	0,           -1 },
+	{ "Waterfox",  "Places",  NULL,   			NULL,     	0,		  	1,           -1 },
+	{ NULL,  	   NULL,  "Waterfox Classic",   1<<0,     	1,		  	0,           -1 },
 	{ "St",  			"st",    "ranger",		1<<1,     	1,		  	0,           -1 },
 	{ "St",				"st",     "st",       	1<<2,     	1,		  	0,           -1 },
 	{ "Subl3",  		NULL,  "Sublime Text",  1<<3,     	1,		  	0,           -1 },
@@ -65,11 +67,11 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-    { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-    { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-    { MODKEY|Mod1Mask, KEY,      tag,      	  {.ui = 1 << TAG} }, \
-    { MODKEY|Mod1Mask, KEY,      view,      	  {.ui = 1 << TAG} },
+	{ MODKEY,                       KEY,      view,         {.ui = 1 << TAG} }, \
+    { MODKEY|ControlMask,           KEY,      toggleview,   {.ui = 1 << TAG} }, \
+    { MODKEY|ShiftMask,             KEY,      tag,          {.ui = 1 << TAG} }, \
+    { MODKEY|Mod1Mask, 				KEY,      tag,      	{.ui = 1 << TAG} }, \
+    { MODKEY|Mod1Mask, 				KEY,      view,      	{.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -109,7 +111,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_6,                      5)
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
 	{ MODKEY,                        XK_s,     spawn,       SHCMD("subl3") },
-    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'Mozilla Firefox' || firefox") },
+    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'Waterfox Current' || waterfox-current") },
     { MODKEY,                        XK_z,     spawn,       SHCMD("wmctrl -x -a Zathura || open-book") },
     { MODKEY,                        XK_l,     spawn,       SHCMD("wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo") },
     { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
@@ -148,6 +150,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
     { MODKEY,                       XK_d,       spawn,     	   SHCMD("song-select") },
     { MODKEY|ShiftMask,				XK_d,       spawn,     	   SHCMD("song-select a") },
+    { MODKEY|ShiftMask,				XK_c,       spawn,     	   SHCMD("killall picom; picom --experimental-backends -b") },
     { MODKEY,						XK_Home,    spawn,     	   SHCMD("st mocp") },
     { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
