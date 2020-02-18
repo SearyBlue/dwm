@@ -1,7 +1,9 @@
 #include "gaplessgrid.c"
 
-static const unsigned int borderpx  = 5;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int gappx     = 0;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int focusonwheel       = 0;
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 // static const unsigned int gappx     = 0;        /* gaps between windows */
 static const unsigned int systrayspacing = 5;   /* systray spacing */
@@ -12,7 +14,7 @@ static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = {"Source Code Pro:size=11:style=bold", "Font Awesome 5 Brands Regular:size=11:style=bold", "Font Awesome 5 Free Solid:size=11:style=bold", "Font Awesome 5 Free Regular:size=11:style=bold"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#0d1011";
-static const char col_gray2[]       = "#444444";
+static const char col_gray2[]       = "#00ff00";
 static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#000000";
 static const char col_cyan[]        = "#005577";
@@ -151,7 +153,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
     { MODKEY,                       XK_d,       spawn,     	   SHCMD("song-select") },
     { MODKEY|ShiftMask,				XK_d,       spawn,     	   SHCMD("song-select a") },
-    { MODKEY|ShiftMask,				XK_c,       spawn,     	   SHCMD("killall picom; picom --experimental-backends -b") },
+    { MODKEY|ShiftMask,				XK_c,       spawn,     	   SHCMD("killall picom; picom") },
     { MODKEY,						XK_Home,    spawn,     	   SHCMD("st mocp") },
     { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
