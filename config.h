@@ -1,9 +1,8 @@
-#include "gaplessgrid.c"
+// #include "gaplessgrid.c"
 
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 0;        /* gaps between windows */
+static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const int focusonwheel       = 0;
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 // static const unsigned int gappx     = 0;        /* gaps between windows */
 static const unsigned int systrayspacing = 5;   /* systray spacing */
@@ -14,19 +13,19 @@ static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = {"Source Code Pro:size=11:style=bold", "Font Awesome 5 Brands Regular:size=11:style=bold", "Font Awesome 5 Free Solid:size=11:style=bold", "Font Awesome 5 Free Regular:size=11:style=bold"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#0d1011";
-static const char col_gray2[]       = "#00ff00";
+static const char col_cyan[]        = "#0055ff";
 static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#000000";
-static const char col_cyan[]        = "#005577";
+static const char col_gray[]        = "#1d1f21";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray4 },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
-// static const char *tags[] = { "", "", "", "", "", ""};
+// static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
+static const char *tags[] = { "", "", "", "", "", ""};
 
 static const Rule rules[] = {
 	/* class      	instance    title       tags mask    switch to tag   isfloating   monitor */
@@ -48,6 +47,7 @@ static const Rule rules[] = {
 	{ "Mtpaint",		NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{ "mpv",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"Lxappearance",	NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
+	{NULL,	NULL, "/home/kirito/.cache/manpages/",       1<<2,      	NULL,	 	1,           -1 },
 	{"Gnuplot",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"St",				NULL,     "mocp",       NULL,      	NULL,	 	1,           -1 },
 	{NULL,		"gpartedbin",       NULL,       NULL,      	NULL,	 	1,           -1 },
@@ -63,7 +63,7 @@ static const int resizehints = 0;   /* 1 means respect size hints in tiled resiz
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "",      tile },    /* first entry is default */
-	{ "",      gaplessgrid },
+	// { "",      gaplessgrid },
 	{ "",      NULL },    /* no layout function means floating behavior */
 	{ "M",      monocle },};
 
@@ -97,7 +97,6 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Down,     setcfact,       {.f = +0.25} },
 	{ MODKEY|ControlMask,           XK_Up,   setcfact,       {.f = -0.25} },
 	{ MODKEY,                       XK_Page_Up,zoom,           {0} },
-	// { MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,             			XK_x,      killclient,     {0} },
 	{ MODKEY|ControlMask,			XK_g,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ControlMask,			XK_t,      setlayout,      {.v = &layouts[1]} },
@@ -112,15 +111,20 @@ static Key keys[] = {
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
+
+
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
 	{ MODKEY,                        XK_s,     spawn,       SHCMD("subl3") },
     { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'Waterfox Current' || waterfox-current") },
     { MODKEY,                        XK_z,     spawn,       SHCMD("wmctrl -x -a Zathura || open-book") },
     { MODKEY,                        XK_l,     spawn,       SHCMD("wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo") },
-    { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
+    { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
     { MODKEY|ShiftMask,              XK_e,     spawn,       SHCMD("st ranger") },
-    { MODKEY,                        XK_t,        spawn,       SHCMD("wmctrl -lp | grep $(pgrep -fx 'st' | head -n 1) | awk '{print $1}' | xargs wmctrl -ia || st") },
+    { MODKEY,                        XK_t,        spawn,       SHCMD("wmctrl -lp | grep $(pgrep -fx -n 'st') | awk '{print $1}' | xargs wmctrl -ia || st") },
     { MODKEY,                        XK_Return,   spawn,          {.v = termcmd } },
+
+
+
     { MODKEY,                        XK_n,        spawn,       SHCMD("network") },
     { MODKEY|ShiftMask,            	XK_h,        spawn,       SHCMD("mocp --seek -10") },
     { MODKEY|ShiftMask,            	XK_j,        spawn,       SHCMD("mocp --seek +10") },
@@ -132,8 +136,8 @@ static Key keys[] = {
     { MODKEY,                        XK_i,        spawn,       SHCMD("subl3 -w ~/.config/dwm/config.h") },
     { MODKEY,                        XK_u,        spawn,       SHCMD("unmount") },
     { MODKEY|ShiftMask,				 XK_u,        spawn,       SHCMD("st -c float-term bash -ic \"hkp\"") },
-    { MODKEY|ShiftMask,				 XK_k,        spawn,       SHCMD("st -c float-term bash -ic \"cd $HOME/storage/downloads/ > /dev/null; xclip -o | xargs youtube-dl --extract-audio -i --audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
-    { MODKEY|ControlMask,				 XK_k,        spawn,       SHCMD("st -c float-term bash -ic \"cd $HOME/storage/downloads/ > /dev/null; xclip -o | xargs youtube-dl -i && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
+    { MODKEY|ShiftMask,				 XK_k,        spawn,       SHCMD("st -c float-term bash -ic \"builtin cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl --extract-audio -i --audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
+    { MODKEY|ControlMask,				 XK_k,        spawn,   SHCMD("st -c float-term bash -ic \"cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl -i && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
     { MODKEY,                        XK_g,        spawn,       SHCMD("wmctrl -Fa mutt || st -g 100x25+350+200 mutt") },
     { MODKEY,                        XK_m,        spawn,       SHCMD("mount-all") },
     { MODKEY,                        XK_r,        spawn,       SHCMD("subl3 ~/.config/ranger/rc.conf") },
@@ -146,8 +150,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,            	XK_comma,  	spawn,       SHCMD("light -U 1") },
 	{ MODKEY|ControlMask,          	XK_period,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db+ && pkill -SIGRTMIN+12 dwmblocks") },
 	{ MODKEY|ControlMask,          	XK_comma,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db- && pkill -SIGRTMIN+12 dwmblocks") },
-    { MODKEY ,           			 XK_c,   	  spawn,       SHCMD("while expr=$((echo \"${expr}\";cat /home/kirito/.cache/functions)|dmenu);do expr=$(qalc \"${expr}\");done") },
-    { MODKEY|ShiftMask,              XK_x,        spawn,       SHCMD("killall xinit") },
+    { MODKEY ,           			 XK_c,   	  spawn,       SHCMD("st qalc") },
     { MODKEY|ShiftMask,              XK_Delete,  spawn,       SHCMD("delete-song-wallpaper s") },
     { MODKEY|ControlMask,            XK_Delete,  spawn,       SHCMD("delete-song-wallpaper i") },
     { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
@@ -158,10 +161,13 @@ static Key keys[] = {
     { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
     { MODKEY,                       XK_Tab,       spawn,       SHCMD("wmctrl -l | dmenu | cut -d ' ' -f1 | xargs wmctrl -ia")},
+    
+
+    { MODKEY|ShiftMask,             XK_l,       spawn,     	   SHCMD("slock") },
     { MODKEY,                       XK_p,       spawn,     	   SHCMD("uninstall") },
+    { MODKEY|ShiftMask,              XK_x,        spawn,       SHCMD("killall xinit") },
     { MODKEY|ShiftMask,             XK_s,       spawn,     	   SHCMD("systemctl suspend -i") },
     { MODKEY|ShiftMask,             XK_y,       spawn,     	   SHCMD("reboot") },
-    { MODKEY|ShiftMask,             XK_l,       spawn,     	   SHCMD("slock") },
 };
 
 /* button definitions */
