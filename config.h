@@ -30,7 +30,8 @@ static const char *tags[] = { "", "", "", "", "", ""};
 static const Rule rules[] = {
 	/* class      	instance    title       tags mask    switch to tag   isfloating   monitor */
 	{ "firefox", NULL, "Mozilla Firefox",       1<<0,     	1,		  	0,           -1 },
-	{ NULL,  	   NULL,  "Waterfox Current",   1<<0,     	1,		  	0,           -1 },
+	{ "Waterfox","Navigator",  "Waterfox Current",   1<<0,     	1,		  	0,           -1 },
+	{ NULL, NULL, "Preferences", 1<<0,     	1,		  	1,           -1 },
 	{ "Waterfox",  "Places",  NULL,   			NULL,     	0,		  	1,           -1 },
 	{ NULL,  	   NULL,  "Waterfox Classic",   1<<0,     	1,		  	0,           -1 },
 	{ "St",  			"st",    "ranger",		1<<1,     	1,		  	0,           -1 },
@@ -53,6 +54,7 @@ static const Rule rules[] = {
 	{"St",				NULL,     "mocp",       NULL,      	NULL,	 	1,           -1 },
 	{NULL,		"gpartedbin",       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{"Nm-connection-editor", NULL,	NULL,		NULL,      	NULL,	 	1,           -1 },
+	{"Matplotlib", NULL,	NULL,		NULL,      	NULL,	 	1,           -1 },
 	{NULL,NULL, "Default (Linux).sublime-keymap - Sublime Text (UNREGISTERED)",       NULL,       NULL,      	NULL,	 	1,           -1 },
 };
 
@@ -144,15 +146,24 @@ static Key keys[] = {
     { MODKEY,                        XK_r,        spawn,       SHCMD("subl3 ~/.config/ranger/rc.conf") },
     { MODKEY|ShiftMask,            XK_t,        spawn,       SHCMD("task-manager") },
     { MODKEY|ControlMask,            XK_w,        spawn,       SHCMD("find /storage/walls/* | shuf -n 1 | xargs hsetroot -cover") },
-    { MODKEY,            			XK_slash, spawn,       SHCMD("search") },
-    { MODKEY|ShiftMask,            	XK_slash, spawn,       SHCMD("search -o") },
-    { MODKEY|ShiftMask,              XK_b,        spawn,       SHCMD("open-book") },
-    { MODKEY|ControlMask,              XK_c,        spawn,       SHCMD("open-config") },
-    { MODKEY|ShiftMask,            	XK_period,  spawn,       SHCMD("light -A 1; pkill -SIGRTMIN+13 dwmblocks") },
-    { MODKEY|ShiftMask,            	XK_comma,  	spawn,       SHCMD("light -U 1; pkill -SIGRTMIN+13 dwmblocks") },
-	{ MODKEY|ControlMask,          	XK_period,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db+ && pkill -SIGRTMIN+12 dwmblocks") },
-	{ MODKEY|ControlMask,          	XK_comma,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db- && pkill -SIGRTMIN+12 dwmblocks") },
-    { MODKEY ,           			 XK_c,   	  spawn,       SHCMD("st qalc") },
+    { MODKEY|Mod1Mask,            	XK_d, 	spawn,       SHCMD("search -d") },
+    { MODKEY|Mod1Mask,            	XK_w, 	spawn,       SHCMD("search -w") },
+    { MODKEY|Mod1Mask,            	XK_y, 	spawn,       SHCMD("search -y") },
+    { MODKEY|Mod1Mask,            	XK_r, 	spawn,       SHCMD("search -r") },
+    { MODKEY|Mod1Mask,            	XK_u, 	spawn,       SHCMD("search -u") },
+    { MODKEY|Mod1Mask,            	XK_l, 	spawn,       SHCMD("search -l") },
+    { MODKEY|Mod1Mask,            	XK_a, 	spawn,       SHCMD("search -a") },
+    { MODKEY|Mod1Mask,            	XK_f, 	spawn,       SHCMD("search -f") },
+    { MODKEY|Mod1Mask,            	XK_m, 	spawn,       SHCMD("search -m") },
+
+    { MODKEY|ShiftMask,              XK_b,      spawn,       SHCMD("open-book") },
+    { MODKEY|ControlMask,              XK_c,    spawn,       SHCMD("open-config") },
+    { MODKEY|ShiftMask,            	XK_period,  spawn,       SHCMD("light -A 1 && brightness-show") },
+    { MODKEY|ShiftMask,            	XK_comma,  	spawn,       SHCMD("light -U 1 && brightness-show") },
+	{ MODKEY|ControlMask,          	XK_period,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db+ && volume-show") },
+	{ MODKEY|ControlMask,          	XK_comma,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db- && volume-show") },
+    // { MODKEY ,           			 XK_c,   	  spawn,       SHCMD("st qalc") },
+    { MODKEY ,  XK_c,  spawn,  SHCMD("while expr=$((echo -e \"\ ${expr}\n\"; cat /home/kirito/.cache/functions) | dmenu); do expr=$(qalc \"${expr}\"); done") },
     { MODKEY|ShiftMask,              XK_Delete,  spawn,       SHCMD("delete-song-wallpaper s") },
     { MODKEY|ControlMask,            XK_Delete,  spawn,       SHCMD("delete-song-wallpaper i") },
     { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
@@ -163,7 +174,8 @@ static Key keys[] = {
     { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
     { MODKEY,                       XK_Tab,       spawn,       SHCMD("wmctrl -l | dmenu | cut -d ' ' -f1 | xargs wmctrl -ia")},
-    
+    { MODKEY|ControlMask, 			XK_p,       spawn,     	   SHCMD("waterfox-current --preferences") },
+
 
     { MODKEY|ShiftMask,             XK_l,       spawn,     	   SHCMD("slock") },
     { MODKEY,                       XK_p,       spawn,     	   SHCMD("uninstall") },
