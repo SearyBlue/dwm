@@ -89,7 +89,7 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_a,	   spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_a,	   spawn,          SHCMD("find ${PATH//:/ } -maxdepth 1 -executable -printf '%f\n' | dmenu | xargs bash -c")},
 	{ MODKEY|ControlMask,			XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
@@ -118,7 +118,7 @@ static Key keys[] = {
 
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
 	{ MODKEY,                        XK_s,     spawn,       SHCMD("subl3") },
-    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'Waterfox Current' || waterfox-current") },
+    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'Mozilla Firefox' || firefox") },
     { MODKEY,                        XK_z,     spawn,       SHCMD("wmctrl -x -a Zathura || open-book") },
     { MODKEY,                        XK_l,     spawn,       SHCMD("wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo") },
 { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
@@ -174,7 +174,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
     { MODKEY,                       XK_Tab,       spawn,       SHCMD("wmctrl -l | dmenu | cut -d ' ' -f1 | xargs wmctrl -ia")},
-    { MODKEY|ControlMask, 			XK_p,       spawn,     	   SHCMD("waterfox-current --preferences") },
+    { MODKEY|ControlMask, 			XK_p,       spawn,     	   SHCMD("firefox --preferences") },
 
 
     { MODKEY|ShiftMask,             XK_l,       spawn,     	   SHCMD("slock") },
