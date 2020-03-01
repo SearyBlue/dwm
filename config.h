@@ -169,7 +169,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
     { MODKEY,                       XK_d,       spawn,     	   SHCMD("song-select") },
     { MODKEY|ShiftMask,				XK_d,       spawn,     	   SHCMD("song-select a") },
-    { MODKEY|ShiftMask,				XK_c,       spawn,     	   SHCMD("killall picom; picom") },
+    { MODKEY|ShiftMask,				XK_c,       spawn,     	   SHCMD("killall picom; picom --experimental-backends") },
     { MODKEY,						XK_Home,    spawn,     	   SHCMD("st mocp") },
     { MODKEY|ShiftMask,				XK_p,       spawn,     	   SHCMD("st -c float-term gnuplot") },
     { MODKEY,                       XK_f,       spawn,     	   SHCMD("wmctrl -r :ACTIVE: -b toggle,fullscreen") },
