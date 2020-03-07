@@ -10,7 +10,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = {"Source Code Pro:size=11:style=bold", "Font Awesome 5 Brands Regular:size=11:style=bold", "Font Awesome 5 Free Solid:size=11:style=bold", "Font Awesome 5 Free Regular:size=11:style=bold"};
+static const char *fonts[]          = {"Fira Code:size=11:style=bold", "Font Awesome 5 Brands Regular:size=11:style=bold", "Font Awesome 5 Free Solid:size=11:style=bold", "Font Awesome 5 Free Regular:size=11:style=bold"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#0d1011";
 static const char col_cyan[]        = "#0055ff";
@@ -31,6 +31,7 @@ static const Rule rules[] = {
 	/* class      	instance    title       tags mask    switch to tag   isfloating   monitor */
 	{ "firefox", NULL, "Mozilla Firefox",       1<<0,     	1,		  	0,           -1 },
 	{ "Waterfox","Navigator",  "Waterfox Current",   1<<0,     	1,		  	0,           -1 },
+	{ "Chromium","chromium",  NULL,   1<<0,     			1,		  	0,           -1 },
 	{ NULL, NULL, "Preferences", 1<<0,     	1,		  	1,           -1 },
 	{ "Waterfox",  "Places",  NULL,   			NULL,     	0,		  	1,           -1 },
 	{ NULL,  	   NULL,  "Waterfox Classic",   1<<0,     	1,		  	0,           -1 },
@@ -118,7 +119,7 @@ static Key keys[] = {
 
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
 	{ MODKEY,                        XK_s,     spawn,       SHCMD("subl3") },
-    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'Mozilla Firefox' || firefox") },
+    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'chromium' || chromium") },
     { MODKEY,                        XK_z,     spawn,       SHCMD("wmctrl -x -a Zathura || open-book") },
     { MODKEY,                        XK_l,     spawn,       SHCMD("wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo") },
 { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
