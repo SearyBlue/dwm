@@ -48,7 +48,7 @@ static const Rule rules[] = {
 	{NULL,       		NULL,        "qalc",  	NULL,      	NULL,	 	1,           -1 },
 	{ "Pqiv",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{ "Mtpaint",		NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
-	{ "mpv",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
+	{ "mpv",			NULL,       NULL,       NULL,      	NULL,	 	0,           -1 },
 	{"Lxappearance",	NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
 	{NULL,	NULL, "/home/kirito/.cache/manpages/",       1<<2,      	NULL,	 	1,           -1 },
 	{"Gnuplot",			NULL,       NULL,       NULL,      	NULL,	 	1,           -1 },
@@ -90,7 +90,8 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_a,	   spawn,          SHCMD("find ${PATH//:/ } -maxdepth 1 -executable -printf '%f\n' | dmenu | xargs bash -c")},
+	// { MODKEY,                       XK_a,	   spawn,          SHCMD("find ${PATH//:/ } -maxdepth 1 -executable -printf '%f\n' | dmenu | xargs bash -c")},
+	{ MODKEY,                       XK_a,	   spawn,          SHCMD("dmenu_run")},
 	{ MODKEY|ControlMask,			XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
@@ -157,12 +158,12 @@ static Key keys[] = {
     { MODKEY|Mod1Mask,            	XK_f, 	spawn,       SHCMD("search -f") },
     { MODKEY|Mod1Mask,            	XK_m, 	spawn,       SHCMD("search -m") },
 
-    { MODKEY|ShiftMask,              XK_b,      spawn,       SHCMD("open-book") },
-    { MODKEY|ControlMask,              XK_c,    spawn,       SHCMD("open-config") },
-    { MODKEY|ShiftMask,            	XK_period,  spawn,       SHCMD("light -A 1 && brightness-show") },
-    { MODKEY|ShiftMask,            	XK_comma,  	spawn,       SHCMD("light -U 1 && brightness-show") },
-	{ MODKEY|ControlMask,          	XK_period,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db+ && pkill -SIGRTMIN+12 dwmblocks") },
-	{ MODKEY|ControlMask,          	XK_comma,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db- && pkill -SIGRTMIN+12 dwmblocks") },
+    { MODKEY|ShiftMask,              XK_b,      spawn,       SHCMD("find /storage/docs/ | egrep '*.(pdf|djvu)' | dmenu | xargs -d $'\n' sh -c 'for arg do wmctrl -a \"$arg\" || zathura --fork \"$arg\"; done' _") },
+    { MODKEY|ControlMask,              XK_c,    spawn,       SHCMD("find ~/.config/ -maxdepth 2 -type f ! -path */.git/* | dmenu | xargs -r subl3") },
+    { MODKEY|ShiftMask,            	XK_comma,  spawn,       SHCMD("light -A 1 && brightness-show") },
+    { MODKEY|ShiftMask,            	XK_period,  	spawn,       SHCMD("light -U 1 && brightness-show") },
+	{ MODKEY|ControlMask,          	XK_comma,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db+ && pkill -SIGRTMIN+12 dwmblocks") },
+	{ MODKEY|ControlMask,          	XK_period,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db- && pkill -SIGRTMIN+12 dwmblocks") },
     // { MODKEY ,           			 XK_c,   	  spawn,       SHCMD("st qalc") },
     { MODKEY ,  XK_c,  spawn,  SHCMD("while expr=$((echo -e \"\ ${expr}\n\"; cat /home/kirito/.cache/functions) | dmenu); do expr=$(qalc \"${expr}\"); done") },
     { MODKEY|ShiftMask,              XK_Delete,  spawn,       SHCMD("delete-song-wallpaper s") },
