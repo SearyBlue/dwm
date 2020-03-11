@@ -32,6 +32,7 @@ static const Rule rules[] = {
 	{ "firefox", NULL, "Mozilla Firefox",       1<<0,     	1,		  	0,           -1 },
 	{ "Waterfox","Navigator",  "Waterfox Current",   1<<0,     	1,		  	0,           -1 },
 	{ "Chromium","chromium",  NULL,   1<<0,     			1,		  	0,           -1 },
+	{ "Brave-browser", NULL, NULL,   1<<0,     			1,		  	0,           -1 },
 	{ NULL, NULL, "Preferences", 1<<0,     	1,		  	1,           -1 },
 	{ "Waterfox",  "Places",  NULL,   			NULL,     	0,		  	1,           -1 },
 	{ NULL,  	   NULL,  "Waterfox Classic",   1<<0,     	1,		  	0,           -1 },
@@ -120,7 +121,7 @@ static Key keys[] = {
 
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
 	{ MODKEY,                        XK_s,     spawn,       SHCMD("subl3") },
-    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'chromium' || chromium") },
+    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'brave' || brave") },
     { MODKEY,                        XK_z,     spawn,       SHCMD("wmctrl -x -a Zathura || open-book") },
     { MODKEY,                        XK_l,     spawn,       SHCMD("wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo") },
 { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
