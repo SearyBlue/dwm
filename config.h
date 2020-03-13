@@ -121,7 +121,7 @@ static Key keys[] = {
 
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
 	{ MODKEY,                        XK_s,     spawn,       SHCMD("subl3") },
-    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'brave' || brave") },
+    { MODKEY,                        XK_b,     spawn,       SHCMD("wmctrl -a 'firefox' || firefox") },
     { MODKEY,                        XK_z,     spawn,       SHCMD("wmctrl -x -a Zathura || open-book") },
     { MODKEY,                        XK_l,     spawn,       SHCMD("wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo") },
 { MODKEY,                        XK_e,     spawn,       SHCMD("wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger") },
@@ -149,7 +149,7 @@ static Key keys[] = {
     { MODKEY,                        XK_r,        spawn,       SHCMD("subl3 ~/.config/ranger/rc.conf") },
     { MODKEY|ShiftMask,            XK_t,        spawn,       SHCMD("task-manager") },
     { MODKEY|ControlMask,            XK_w,        spawn,       SHCMD("find /storage/walls/* | shuf -n 1 | xargs hsetroot -cover") },
-    { MODKEY|Mod1Mask,            	XK_d, 	spawn,       SHCMD("search -d") },
+    { MODKEY|Mod1Mask,            	XK_d, 	spawn,       SHCMD("bash -c 'search -d'") },
     { MODKEY|Mod1Mask,            	XK_w, 	spawn,       SHCMD("search -w") },
     { MODKEY|Mod1Mask,            	XK_y, 	spawn,       SHCMD("search -y") },
     { MODKEY|Mod1Mask,            	XK_r, 	spawn,       SHCMD("search -r") },
