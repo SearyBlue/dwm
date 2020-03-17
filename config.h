@@ -25,7 +25,7 @@ static const char *colors[][3]      = {
 
 /* tagging */
 // static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
-static const char *tags[] = { "", "", "", "", "", ""};
+static const char *tags[] = { "", "", "", "", "", "", ""};
 
 static const Rule rules[] = {
 	/* class      	instance    title       					tags mask    switch to tag   iscentered	isfloating   monitor */
@@ -42,10 +42,11 @@ static const Rule rules[] = {
 	{ "Subl3",  		NULL,  "Sublime Text",  						1<<3,     	1,		  	1,			0,           -1 },
 	{ "Zathura",  		NULL,       NULL,       						1<<4,     	1,		  	1,			1,           -1 },
 	{"Transmission-gtk",NULL,       NULL,       						1<<5,      	1, 			1,			1,           -1 },
+	{NULL,       NULL,  "ytop",    										1<<6,      	0, 			1,			0,           -1 },
 	{ "Evince",  		NULL,       NULL,       						1<<4,     	1,		  	1,			1,           -1 },
 	{ NULL, 			NULL,  "LibreOffice",   						1<<5,     	1,		  	1,			1,           -1 },
 	{ "float-term",  	NULL,       NULL,       						NULL,      	NULL,	 	1,			1,           -1 },
-	{NULL,       		NULL,        "mutt",  							NULL,      	NULL,	 	1,			1,           -1 },
+	{"st-256color",		NULL,        "mutt",  							NULL,      	NULL,	 	1,			1,           -1 },
 	{NULL,       		NULL,        "qalc",  							NULL,      	NULL,	 	1,			1,           -1 },
 	{ "Pqiv",			NULL,       NULL,       						NULL,      	NULL,	 	1,			1,           -1 },
 	{ "Mtpaint",		NULL,       NULL,       						NULL,      	NULL,	 	1,			1,           -1 },
@@ -116,6 +117,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
+	TAGKEYS(                        XK_7,                      6)
 
 
 	{ MODKEY|ShiftMask,				 XK_r,        spawn,    SHCMD("st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && killall dwm || read\"") },
@@ -138,16 +140,16 @@ static Key keys[] = {
     { MODKEY|ShiftMask,				 XK_n,        spawn,       SHCMD("nmcli radio wifi | grep disable && nmcli radio wifi on || nmcli radio wifi off") },
     { NULL,                          XK_Print,    spawn,       SHCMD("gnome-screenshot -f /storage/pictures/$(date '+%F_%T').png") },
     { MODKEY,                        XK_Print,    spawn,       SHCMD("name=/storage/pictures/$(date '+%F_%T').png; gnome-screenshot -a -f ${name} && pqiv ${name}") },
-    { MODKEY,                        XK_i,        spawn,       SHCMD("subl3 -w ~/.config/dwm/config.h") },
+    { MODKEY,                        XK_i,        spawn,       SHCMD("subl3 -w $HOME/.config/dwm/config.h") },
     { MODKEY,                        XK_u,        spawn,       SHCMD("unmount") },
     { MODKEY|ShiftMask,				 XK_u,        spawn,       SHCMD("st -c float-term bash -ic \"hkp\"") },
     { MODKEY|ShiftMask,				 XK_k,        spawn,       SHCMD("st -c float-term bash -ic \"builtin cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl --extract-audio -i --audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
     { MODKEY|ControlMask,				 XK_k,        spawn,   SHCMD("st -c float-term bash -ic \"cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl -i && notify-send 'Download Complete' || notify-send 'Download Failed'\"") },
     { MODKEY,                        XK_g,        spawn,       SHCMD("wmctrl -Fa mutt || st -g 100x25+350+200 mutt") },
     { MODKEY,                        XK_m,        spawn,       SHCMD("mount-all") },
-    { MODKEY,                        XK_r,        spawn,       SHCMD("subl3 ~/.config/ranger/rc.conf") },
+    { MODKEY,                        XK_r,        spawn,       SHCMD("subl3 $HOME/.config/ranger/rc.conf") },
     { MODKEY|ShiftMask,            XK_t,        spawn,       SHCMD("task-manager") },
-    { MODKEY|ControlMask,            XK_w,        spawn,       SHCMD("find /storage/walls/* | shuf -n 1 | xargs hsetroot -cover") },
+    { MODKEY|ControlMask,            XK_w,        spawn,       SHCMD("find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot -cover $arg; echo $arg > $HOME/.cache/wallpaper; done' _") },
     { MODKEY|Mod1Mask,            	XK_d, 	spawn,       SHCMD("bash -c 'search -d'") },
     { MODKEY|Mod1Mask,            	XK_w, 	spawn,       SHCMD("search -w") },
     { MODKEY|Mod1Mask,            	XK_y, 	spawn,       SHCMD("search -y") },
@@ -159,16 +161,16 @@ static Key keys[] = {
     { MODKEY|Mod1Mask,            	XK_m, 	spawn,       SHCMD("search -m") },
 
     { MODKEY|ShiftMask,              XK_b,      spawn,       SHCMD("find /storage/docs/ | egrep '*.(pdf|djvu)' | dmenu | xargs -d $'\n' sh -c 'for arg do wmctrl -a \"$arg\" || zathura --fork \"$arg\"; done' _") },
-    { MODKEY|ControlMask,              XK_c,    spawn,       SHCMD("find ~/.config/ -maxdepth 2 -type f ! -path */.git/* | dmenu | xargs -r subl3") },
+    { MODKEY|ControlMask,              XK_c,    spawn,       SHCMD("find $HOME/.config/ -maxdepth 2 -type f ! -path */.git/* | dmenu | xargs -r subl3") },
     { MODKEY|ShiftMask,            	XK_comma,  spawn,       SHCMD("light -A 1 && brightness-show") },
     { MODKEY|ShiftMask,            	XK_period,  	spawn,       SHCMD("light -U 1 && brightness-show") },
-	{ MODKEY|ControlMask,          	XK_comma,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db+ && pkill -SIGRTMIN+12 dwmblocks") },
-	{ MODKEY|ControlMask,          	XK_period,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db- && pkill -SIGRTMIN+12 dwmblocks") },
+	{ MODKEY|ControlMask,          	XK_comma,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db+ && volume-show") },
+	{ MODKEY|ControlMask,          	XK_period,  	spawn,        SHCMD("amixer set Master unmute && amixer set Master 0.75db- && volume-show") },
     // { MODKEY ,           			 XK_c,   	  spawn,       SHCMD("st qalc") },
     { MODKEY ,  XK_c,  spawn,  SHCMD("while expr=$((echo -e \"\ ${expr}\n\"; cat /home/kirito/.cache/functions) | dmenu); do expr=$(qalc \"${expr}\"); done") },
-    { MODKEY|ShiftMask,              XK_Delete,  spawn,       SHCMD("delete-song-wallpaper s") },
-    { MODKEY|ControlMask,            XK_Delete,  spawn,       SHCMD("delete-song-wallpaper i") },
-    { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load ~/.Xresources") },
+    { MODKEY|ShiftMask,              XK_Delete,  spawn,       SHCMD("cat $HOME/.cache/wallpaper | xargs rm && (find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot -cover $arg; echo $arg > $HOME/.cache/wallpaper; done' _) || notify-send 'Failed to delete wallpaper'") },
+    // { MODKEY|ControlMask,            XK_Delete,  spawn,       SHCMD("delete-song-wallpaper i") },
+    { MODKEY|ControlMask,            XK_x,  spawn,       SHCMD("xrdb -load $HOME/.Xresources") },
     { MODKEY,                       XK_d,       spawn,     	   SHCMD("song-select") },
     { MODKEY|ShiftMask,				XK_d,       spawn,     	   SHCMD("song-select a") },
     { MODKEY|ShiftMask,				XK_c,       spawn,     	   SHCMD("killall picom; picom --experimental-backends") },
