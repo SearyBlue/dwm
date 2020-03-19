@@ -190,14 +190,14 @@ static Monitor *createmon(void);
 static void destroynotify(XEvent *e);
 static void detach(Client *c);
 static void detachstack(Client *c);
-static Monitor *dirtomon(int dir);
+// static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
 static void focusin(XEvent *e);
-static void focusmon(const Arg *arg);
+// static void focusmon(const Arg *arg);
 static void focusstack(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
@@ -218,7 +218,7 @@ static void movemouse(const Arg *arg);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
-static void quit(const Arg *arg);
+// static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
 static void removesystrayicon(Client *i);
 static void resize(Client *c, int x, int y, int w, int h, int interact);
@@ -244,7 +244,7 @@ static void sigchld(int unused);
 static void spawn(const Arg *arg);
 static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
-static void tagmon(const Arg *arg);
+// static void tagmon(const Arg *arg);
 static void tile(Monitor *);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
@@ -785,20 +785,20 @@ detachstack(Client *c)
 	}
 }
 
-Monitor *
-dirtomon(int dir)
-{
-	Monitor *m = NULL;
+// Monitor *
+// dirtomon(int dir)
+// {
+// 	Monitor *m = NULL;
 
-	if (dir > 0) {
-		if (!(m = selmon->next))
-			m = mons;
-	} else if (selmon == mons)
-		for (m = mons; m->next; m = m->next);
-	else
-		for (m = mons; m->next != selmon; m = m->next);
-	return m;
-}
+// 	if (dir > 0) {
+// 		if (!(m = selmon->next))
+// 			m = mons;
+// 	} else if (selmon == mons)
+// 		for (m = mons; m->next; m = m->next);
+// 	else
+// 		for (m = mons; m->next != selmon; m = m->next);
+// 	return m;
+// }
 
 void
 drawbar(Monitor *m)
@@ -930,19 +930,19 @@ focusin(XEvent *e)
 		setfocus(selmon->sel);
 }
 
-void
-focusmon(const Arg *arg)
-{
-	Monitor *m;
+// void
+// focusmon(const Arg *arg)
+// {
+// 	Monitor *m;
 
-	if (!mons->next)
-		return;
-	if ((m = dirtomon(arg->i)) == selmon)
-		return;
-	unfocus(selmon->sel, 0);
-	selmon = m;
-	focus(NULL);
-}
+// 	if (!mons->next)
+// 		return;
+// 	if ((m = dirtomon(arg->i)) == selmon)
+// 		return;
+// 	unfocus(selmon->sel, 0);
+// 	selmon = m;
+// 	focus(NULL);
+// }
 
 void
 focusstack(const Arg *arg)
@@ -1401,11 +1401,11 @@ propertynotify(XEvent *e)
 	}
 }
 
-void
-quit(const Arg *arg)
-{
-	running = 0;
-}
+// void
+// quit(const Arg *arg)
+// {
+// 	running = 0;
+// }
 
 Monitor *
 recttomon(int x, int y, int w, int h)
@@ -1894,8 +1894,8 @@ sigchld(int unused)
 void
 spawn(const Arg *arg)
 {
-	if (arg->v == dmenucmd)
-		dmenumon[0] = '0' + selmon->num;
+	// if (arg->v == dmenucmd)
+	// 	dmenumon[0] = '0' + selmon->num;
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
@@ -1917,13 +1917,13 @@ tag(const Arg *arg)
 	}
 }
 
-void
-tagmon(const Arg *arg)
-{
-	if (!selmon->sel || !mons->next)
-		return;
-	sendmon(selmon->sel, dirtomon(arg->i));
-}
+// void
+// tagmon(const Arg *arg)
+// {
+// 	if (!selmon->sel || !mons->next)
+// 		return;
+// 	sendmon(selmon->sel, dirtomon(arg->i));
+// }
 
 void
 tile(Monitor *m)
