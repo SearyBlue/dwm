@@ -7,7 +7,7 @@ static const int systraypinningfailfirst = 1;
 static const int showsystray        = 1;     
 static const int showbar            = 1;        
 static const int topbar             = 0;        
-static const char *fonts[]          = {"Fira Code:size=11:style=bold", "Font Awesome 5 Brands Regular:size=11:style=bold", "Font Awesome 5 Free Solid:size=11:style=bold", "Font Awesome 5 Free Regular:size=11:style=bold"};
+static const char *fonts[]          = {"Source Code Pro:size=11:style=bold", "Font Awesome 5 Brands Regular:size=11:style=bold", "Font Awesome 5 Free Solid:size=11:style=bold", "Font Awesome 5 Free Regular:size=11:style=bold"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#0d1011";
 static const char col_cyan[]        = "#0055ff";
@@ -23,35 +23,36 @@ static const char *colors[][3]      =
 static const char *tags[] = { "", "", "", "", "", "", ""};
 
 static const Rule rules[] = {
-	{ "firefox", NULL, "Mozilla Firefox",       						1<<0,     	1,		  	1,			0,           -1 },
-	{ "Waterfox","Navigator",  "Waterfox Current",   					1<<0,     	1,		  	1,			0,           -1 },
-	{ "Chromium","chromium",  NULL,   									1<<0,     	1,		  	1,			0,           -1 },
-	{ "Brave-browser", NULL, NULL,   									1<<0,     	1,		  	1,			0,           -1 },
-	{ NULL, NULL, "Preferences", 										1<<0,     	1,		  	1,			1,           -1 },
-	{ "Waterfox",  "Places",  			NULL,   						0,     		0,		  	1,			1,           -1 },
-	{ NULL,  	   NULL,  "Waterfox Classic",   						1<<0,     	1,		  	1,			0,           -1 },
-	{ "st-256color",  			"st",    "ranger",						1<<1,     	1,		  	1,			0,           -1 },
-	{ "st-256color",  			"st",    "nnn",							1<<1,     	1,		  	1,			0,           -1 },
-	{ "st-256color",				"st",     "st",       				1<<2,     	1,		  	1,			0,           -1 },
-	{ "Subl3",  		NULL,  "Sublime Text",  						1<<3,     	1,		  	1,			0,           -1 },
-	{ "Zathura",  		NULL,       NULL,       						1<<4,     	1,		  	1,			1,           -1 },
-	{"Transmission-gtk",NULL,       NULL,       						1<<5,      	1, 			1,			1,           -1 },
-	{NULL,       NULL,  "ytop",    										1<<6,      	0, 			1,			0,           -1 },
-	{ "Evince",  		NULL,       NULL,       						1<<4,     	1,		  	1,			1,           -1 },
-	{ NULL, 			NULL,  "LibreOffice",   						1<<5,     	1,		  	1,			1,           -1 },
-	{ "float-term",  	NULL,       NULL,       						0,      	0,	 		1,			1,           -1 },
-	{"st-256color",		NULL,        "mutt",  							0,      	0,	 		1,			1,           -1 },
-	{NULL,       		NULL,        "qalc",  							0,      	0,	 		1,			1,           -1 },
-	{ "Pqiv",			NULL,       NULL,       						0,      	0,	 		1,			1,           -1 },
-	{ "Mtpaint",		NULL,       NULL,       						0,      	0,	 		1,			1,           -1 },
-	{ "mpv",			NULL,       NULL,       						0,      	0,	 		1,			0,           -1 },
-	{"Lxappearance",	NULL,       NULL,       						0,      	0,	 		1,			1,           -1 },
-	{NULL,	NULL, "/home/kirito/.cache/manpages/",       				1<<2,      	0,	 		1,			1,           -1 },
-	{"Gnuplot",			NULL,       NULL,       						0,      	0,	 		1,			1,           -1 },
-	{"St",				NULL,     "mocp",       						0,      	0,	 		1,			1,           -1 },
-	{NULL,		"gpartedbin",       NULL,       						0,      	0,	 		1,			1,           -1 },
-	{"Nm-connection-editor", NULL,	NULL,								0,      	0,	 		1,			1,           -1 },
-	{"Matplotlib", NULL,	NULL,										0,      	0,	 		1,			1,           -1 },
+	{ "firefox", NULL, "Mozilla Firefox",       	1<<0,     	1, 1,			0,           -1 },
+	{ "Waterfox","Navigator",  "Waterfox Current",   1<<0,     	1, 1,			0,           -1 },
+	{ "Chromium","chromium",  NULL,   1<<0,     	1, 1,			0,           -1 },
+	{ "Brave-browser", NULL, NULL,   1<<0,     	1, 1,			0,           -1 },
+	{ NULL, NULL, "Preferences", 	1<<0,     	1, 1,			1,           -1 },
+	{ "Waterfox",  "Places",  			NULL,   						0,     		0, 1,			1,           -1 },
+	{ NULL,  	   NULL,  "Waterfox Classic",   	1<<0,     	1, 1,			0,           -1 },
+	{ "st-256color",  			"st",    "ranger",	1<<1,     	1, 1,			0,           -1 },
+	{ "st-256color",  			"st",    "nnn",		1<<1,     	1, 1,			0,           -1 },
+	{ "st-256color",				"st",     "st",       1<<2,     	1, 1,			0,           -1 },
+	{ "Subl3",  		NULL,  "Sublime Text",  	1<<3,     	1, 1,			0,           -1 },
+	{ NULL,  	"GVIM",  NULL,  	1<<3,     	1, 1,			0,           -1 },
+	{ "Zathura",  		NULL,       NULL,       	1<<4,     	1, 1,			1,           -1 },
+	{"Transmission-gtk",NULL,       NULL,       	1<<5,      	1, 			1,			1,           -1 },
+	{NULL,       NULL,  "ytop",    	1<<6,      	0, 			1,			0,           -1 },
+	{ "Evince",  		NULL,       NULL,       	1<<4,     	1, 1,			1,           -1 },
+	{ NULL, 			NULL,  "LibreOffice",   	1<<5,     	1, 1,			1,           -1 },
+	{ "float-term",  	NULL,       NULL,       	 0,      	0,	 		1,			1,           -1 },
+	{"st-256color",		NULL,        "mutt",   		0,      	0,	 		1,			1,           -1 },
+	{NULL,       		NULL,        "qalc",   		0,      	0,	 		1,			1,           -1 },
+	{ "Pqiv",			NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
+	{ "Mtpaint",		NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
+	{ "mpv",			NULL,       NULL,        	0,      	0,	 		1,			0,           -1 },
+	{"Lxappearance",	NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
+	{NULL,	NULL, "/home/kirito/.cache/manpages/",       1<<2,      	0,	 		1,			1,           -1 },
+	{"Gnuplot",			NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
+	{"St",				NULL,     "mocp",        	0,      	0,	 		1,			1,           -1 },
+	{NULL,		"gpartedbin",       NULL,        	0,      	0,	 		1,			1,           -1 },
+	{"Nm-connection-editor", NULL,	NULL, 			0,      	0,	 		1,			1,           -1 },
+	{"Matplotlib", NULL,	NULL,  0,      	0,	 		1,			1,           -1 },
 	{NULL,NULL, "Default (Linux).sublime-keymap",       				0,      	0,	 		1,			1,           -1 },
 	{NULL,NULL, "Preferences.sublime-settings - Sublime Text",			0,      	0,	 		1,			1,           -1 },
 };
@@ -59,7 +60,6 @@ static const Rule rules[] = {
 static const float mfact     = 0.5;
 static const int nmaster     = 1;  
 static const int resizehints = 0;  
-
 static const Layout layouts[] = 
 {
 	{ "",      tile },
@@ -78,7 +78,7 @@ static const Layout layouts[] =
 
 static const char drun[] = {"dmenu_run -l 0"};
 static const char rel[] = {"st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && pkill dwm || read\""};
-static const char edit[] = {"subl3"};
+static const char edit[] = {"wmctrl -a GVIM || st -n GVIM gvim -v --servername GVIM"};
 static const char surf[] = {"wmctrl -a 'firefox' || firefox"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
 static const char file[] = {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger"};
@@ -93,14 +93,14 @@ static const char seekfb[] = {"mocp --seek +50"};
 static const char nettogg[] = {"nmcli radio wifi | grep disable && nmcli radio wifi on || nmcli radio wifi off"};
 static const char sshot[] = {"gnome-screenshot -f /storage/pictures/$(date '+%F_%T').png"};
 static const char sshotint[] = {"name=/storage/pictures/$(date '+%F_%T').png; gnome-screenshot -a -f ${name} && pqiv ${name}"};
-static const char dwmconf[] = {"subl3 -w $HOME/.config/dwm/config.h"};
+static const char dwmconf[] = {"st gvim -v --servername GVIM --remote-tab $HOME/.config/dwm/config.h"};
 static const char unm[] = {"unmount"};
 static const char hkp[] = {"st -c float-term bash -ic \"hkp\""};
 static const char mdown[] = {"st -c float-term bash -ic \"builtin cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl --extract-audio -i -audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\""};
 static const char down[] = {"st -c float-term bash -ic \"cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl -i && notify-send 'Download omplete' || notify-send 'Download Failed'\""};
 static const char mutt[] = {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
 static const char mnt[] = {"mount-all"};
-static const char rangconf[] = {"subl3 $HOME/.config/ranger/rc.conf"};
+static const char rangconf[] = {"st gvim -v --servername GVIM --remote-tab $HOME/.config/ranger/rc.conf"};
 static const char taskm[] = {"task-manager"};
 static const char wall[] = {"find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot -cover $arg; echo $arg > $HOME/.cache/allpaper; done' _"};
 static const char searchd[] = {"search -d"};
@@ -113,7 +113,7 @@ static const char searcha[] = {"search -a"};
 static const char searchf[] = {"search -f"};
 static const char searchm[] = {"search -m"};
 static const char book[] = {"find $HOME/storage/docs/ | egrep '*.(pdf|djvu)' | dmenu | xargs -d $'\n' sh -c 'for arg do wmctrl -a \"$arg\" || zathura --fork \"$arg\"; done' _"};
-static const char conf[] = {"find $HOME/.config/ -maxdepth 2 -type f ! -path */.git/* | dmenu | xargs -r subl3"};
+static const char conf[] = {"find $HOME/.config/ -maxdepth 2 -type f ! -path */.git/* | dmenu | xargs -r st gvim -v --servername GVIM --remote-tab"};
 static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
 static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && volume-show"};
@@ -133,6 +133,7 @@ static const char unin[] = {"uninstall"};
 static const char killx[] = {"pkill xinit"};
 static const char zzz[] = {"systemctl suspend -i"};
 static const char reb[] = {"reboot"};
+static const char vimrc[] = {"st gvim -v --servername GVIM --remote-tab ~/.vim/vimrc"};
 
 
 static Key keys[] = {
@@ -213,6 +214,7 @@ static Key keys[] = {
     { MODKEY,                       	XK_f,       		spawn,     	   		SHCMD(fulls) },
     { MODKEY,                       	XK_Tab,       		spawn,       		SHCMD(change)},
     { MODKEY|ControlMask, 				XK_p,       		spawn,     	   		SHCMD(firepref) },
+    { MODKEY, 				XK_v,       		spawn,     	   		SHCMD(vimrc) },
     { MODKEY|ShiftMask,             	XK_l,       		spawn,     	   		SHCMD(lock) },
     { MODKEY,                       	XK_p,       		spawn,     	   		SHCMD(unin) },
     { MODKEY|ShiftMask,              	XK_x,        		spawn,       		SHCMD(killx) },
@@ -231,4 +233,6 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         		Button1,        	tag,            		{0} },
 	{ ClkTagBar,            MODKEY,         		Button3,        	toggletag,      		{0} },
 };
+
+
 
