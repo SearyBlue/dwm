@@ -78,8 +78,8 @@ static const Layout layouts[] =
 
 static const char drun[] = {"dmenu_run -l 0"};
 static const char rel[] = {"st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && pkill dwm || read\""};
-static const char edit[] = {"wmctrl -a GVIM || st -n GVIM gvim -v --servername GVIM"};
-static const char surf[] = {"wmctrl -a 'firefox' || firefox"};
+static const char edit[] = {"vimmer"};
+static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
 static const char file[] = {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger"};
 static const char forcefile[] = {"st ranger"};
@@ -93,14 +93,14 @@ static const char seekfb[] = {"mocp --seek +50"};
 static const char nettogg[] = {"nmcli radio wifi | grep disable && nmcli radio wifi on || nmcli radio wifi off"};
 static const char sshot[] = {"gnome-screenshot -f /storage/pictures/$(date '+%F_%T').png"};
 static const char sshotint[] = {"name=/storage/pictures/$(date '+%F_%T').png; gnome-screenshot -a -f ${name} && pqiv ${name}"};
-static const char dwmconf[] = {"st gvim -v --servername GVIM --remote-tab $HOME/.config/dwm/config.h"};
+static const char dwmconf[] = {"vimmer ~/.config/dwm/config.h"};
 static const char unm[] = {"unmount"};
 static const char hkp[] = {"st -c float-term bash -ic \"hkp\""};
 static const char mdown[] = {"st -c float-term bash -ic \"builtin cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl --extract-audio -i -audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\""};
 static const char down[] = {"st -c float-term bash -ic \"cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl -i && notify-send 'Download omplete' || notify-send 'Download Failed'\""};
 static const char mutt[] = {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
 static const char mnt[] = {"mount-all"};
-static const char rangconf[] = {"st gvim -v --servername GVIM --remote-tab $HOME/.config/ranger/rc.conf"};
+static const char rangconf[] = {"vimmer ~/.config/ranger/rc.conf"};
 static const char taskm[] = {"task-manager"};
 static const char wall[] = {"find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot -cover $arg; echo $arg > $HOME/.cache/allpaper; done' _"};
 static const char searchd[] = {"search -d"};
@@ -113,7 +113,7 @@ static const char searcha[] = {"search -a"};
 static const char searchf[] = {"search -f"};
 static const char searchm[] = {"search -m"};
 static const char book[] = {"find $HOME/storage/docs/ | egrep '*.(pdf|djvu)' | dmenu | xargs -d $'\n' sh -c 'for arg do wmctrl -a \"$arg\" || zathura --fork \"$arg\"; done' _"};
-static const char conf[] = {"find $HOME/.config/ -maxdepth 2 -type f ! -path */.git/* | dmenu | xargs -r st gvim -v --servername GVIM --remote-tab"};
+static const char conf[] = {"st -c float-term bash -c \"find $HOME/.config/ -maxdepth 2 -type f ! -path */.git/* | fzf -m | xargs vimmer\""};
 static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
 static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && volume-show"};
@@ -133,7 +133,7 @@ static const char unin[] = {"uninstall"};
 static const char killx[] = {"pkill xinit"};
 static const char zzz[] = {"systemctl suspend -i"};
 static const char reb[] = {"reboot"};
-static const char vimrc[] = {"st gvim -v --servername GVIM --remote-tab ~/.vim/vimrc"};
+static const char vimrc[] = {"vimmer ~/.vim/vimrc"};
 
 
 static Key keys[] = {
