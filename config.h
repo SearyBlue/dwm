@@ -34,7 +34,7 @@ static const Rule rules[] = {
 	{ "st-256color",  			"st",    "nnn",		1<<1,     	1, 1,			0,           -1 },
 	{ "st-256color",				"st",     "st",       1<<2,     	1, 1,			0,           -1 },
 	{ "Subl3",  		NULL,  "Sublime Text",  	1<<3,     	1, 1,			0,           -1 },
-	{ NULL,  	"GVIM",  NULL,  	1<<3,     	1, 1,			0,           -1 },
+	{ "st-256color",  "VIM SERVER",  NULL,  	1<<3,     	1, 1,			0,           -1 },
 	{ "Zathura",  		NULL,       NULL,       	1<<4,     	1, 1,			1,           -1 },
 	{"Transmission-gtk",NULL,       NULL,       	1<<5,      	1, 			1,			1,           -1 },
 	{NULL,       NULL,  "ytop",    	1<<6,      	0, 			1,			0,           -1 },
