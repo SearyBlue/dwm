@@ -1,5 +1,5 @@
 static const unsigned int borderpx  = 2;
-static const unsigned int gappx     = 5;
+tatic const unsigned int gappx     = 5;
 static const unsigned int snap      = 32;       
 static const unsigned int systraypinning = 0;   
 static const unsigned int systrayspacing = 5;   
