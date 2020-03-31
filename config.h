@@ -1,5 +1,5 @@
 static const unsigned int borderpx  = 2;
-tatic const unsigned int gappx     = 5;
+static const unsigned int gappx     = 5;
 static const unsigned int snap      = 32;       
 static const unsigned int systraypinning = 0;   
 static const unsigned int systrayspacing = 5;   
@@ -76,7 +76,7 @@ static const Layout layouts[] =
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-static const char drun[] = {"dmenu_run -l 0"};
+static const char drun[] = {"st -c float-term bash -c 'find ${PATH//:/ } -maxdepth 1 -executable | fzf -m > ~/.cache/drunout'; [ -s $HOME/.cache/drunout ] && $(cat $HOME/.cache/drunout); rm -f $HOME/.cache/drunout"};
 static const char rel[] = {"st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && pkill dwm || read\""};
 static const char edit[] = {"vimmer"};
 static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
@@ -85,7 +85,7 @@ static const char file[] = {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -
 static const char forcefile[] = {"st ranger"};
 static const char term[] = {"wmctrl -lp | grep $(pgrep -fx -n 'st') | awk '{print $1}' | xargs wmctrl -ia || st"};
 static const char forceterm[] = {"st"};
-static const char net[] = {"network"};
+static const char net[] = {"st -c float-term bash -c \"network\""};
 static const char seekb[] = {"mocp --seek -10"};
 static const char seekf[] = {"mocp --seek +10"};
 static const char seekbb[] = {"mocp --seek -50"};
@@ -101,7 +101,7 @@ static const char down[] = {"st -c float-term bash -ic \"cd $HOME/storage/downlo
 static const char mutt[] = {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
 static const char mnt[] = {"mount-all"};
 static const char rangconf[] = {"vimmer ~/.config/ranger/rc.conf"};
-static const char taskm[] = {"task-manager"};
+static const char taskm[] ={"st -c float-term bash -c \"ps h -e -o comm,%cpu,%mem --sort -%mem | fzf | cut -d ' ' -f1 | xargs -r -n1 -d '\n' pkill\""};
 static const char wall[] = {"find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot -cover $arg; echo $arg > $HOME/.cache/allpaper; done' _"};
 static const char searchd[] = {"search -d"};
 static const char searchw[] = {"search -w"};
@@ -112,29 +112,29 @@ static const char searchl[] = {"search -l"};
 static const char searcha[] = {"search -a"};
 static const char searchf[] = {"search -f"};
 static const char searchm[] = {"search -m"};
-static const char book[] = {"find $HOME/storage/docs/ | egrep '*.(pdf|djvu)' | dmenu | xargs -d $'\n' sh -c 'for arg do wmctrl -a \"$arg\" || zathura --fork \"$arg\"; done' _"};
+static const char book[] = {"st -c 'float-term' bash -c open_book"}; 
 static const char conf[] = {"st -c float-term bash -c \"find $HOME/.config/ -maxdepth 2 -type f ! -path */.git* ! -path *.mp3 ! -path *.mp4 ! -path *.mkv ! -path *.pdf ! -path *.djvu ! -path *.png ! -path *.jpg | fzf -m | xargs vimmer\""};
 static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
 static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && volume-show"};
 static const char vold[] = {"amixer set Master unmute && amixer set Master 0.75db- && volume-show"};
-static const char calc[] = {"while expr=$((echo -e \"${expr}\n\"; cat /home/kirito/.cache/functions) | dmenu); do expr=$(qalc \"${expr}\"); done"};
+static const char calc[] = {"st -c float-term qalc"};// while expr=$((echo -e \"${expr}\n\"; cat /home/kirito/.cache/functions) | fzf); do expr=$(qalc \"${expr}\"); done"};
 static const char delwall[] = {"cat $HOME/.cache/wallpaper | xargs rm && (find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot cover $arg; echo $arg > $HOME/.cache/wallpaper; done' _) || notify-send 'Failed to delete wallpaper'"};
-static const char song[] = {"song-select"};
-static const char songapp[] = {"song-select a"};
+static const char song[] = {"st -c float-term bash -c song-select"};
 static const char comp[] = {"pkill picom; picom --experimental-backends"};
 static const char mocp[] = {"st mocp"};
 static const char plot[] = {"st -c float-term gnuplot"};
 static const char fulls[] = {"wmctrl -r :ACTIVE: -b toggle,fullscreen"};
-static const char change[] = {"wmctrl -l | dmenu | cut -d ' ' -f1 | xargs wmctrl -ia"};
+static const char change[] = {"st -c float-term bash -c \"wmctrl -l | fzf | cut -d ' ' -f1 | xargs wmctrl -ia\""};
 static const char firepref[] = {"firefox --preferences"};
 static const char lock[] = {"slock"};
-static const char unin[] = {"uninstall"};
+static const char unin[] = {"st -c float-term bash -c \"yay -Qttq | fzf | xargs -r yay -Rns -\""};
 static const char killx[] = {"pkill xinit"};
 static const char zzz[] = {"systemctl suspend -i"};
 static const char reb[] = {"reboot"};
 static const char vimrc[] = {"vimmer ~/.vim/vimrc"};
-
+static const char finder[] = {"st -c float-term bash -c \"find -P ~ -writable -type f ! -path */.git* ! -path *.mp3 ! -path *.mp4 ! -path *.mkv ! -path *.pdf ! -path *.djvu ! -path *.png ! -path *.jpg | grep -v 'Permission denied' | fzf | xargs vimmer\"" };
+static const char finder_local[] = {"st -c float-term bash -c 'vim --servername 'VIM SERVER' --remote-expr \"execute(\"pwd\")\" | xargs find | grep -v \"Permission denied\" | fzf | xargs vimmer'" };
 
 static Key keys[] = {
 	{ MODKEY|ControlMask,				XK_b,      			togglebar,      	{0} },
@@ -207,7 +207,6 @@ static Key keys[] = {
     { MODKEY ,  						XK_c,  				spawn,  			SHCMD(calc) },
     { MODKEY|ShiftMask,              	XK_Delete,  		spawn,       		SHCMD(delwall) },
     { MODKEY,                       	XK_d,       		spawn,     	   		SHCMD(song) },
-    { MODKEY|ShiftMask,					XK_d,       		spawn,     	   		SHCMD(songapp) },
     { MODKEY|ShiftMask,					XK_c,       		spawn,     	   		SHCMD(comp) },
     { MODKEY,							XK_Home,    		spawn,     	   		SHCMD(mocp) },
     { MODKEY|ShiftMask,					XK_p,       		spawn,     	   		SHCMD(plot) },
@@ -220,6 +219,8 @@ static Key keys[] = {
     { MODKEY|ShiftMask,              	XK_x,        		spawn,       		SHCMD(killx) },
     { MODKEY|ShiftMask,             	XK_s,       		spawn,     	   		SHCMD(zzz) },
     { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   		SHCMD(reb) },
+    { MODKEY,                 XK_o,                   spawn,                          SHCMD(finder) },
+    { MODKEY|ShiftMask,                 XK_o,                   spawn,                          SHCMD(finder_local) },
 };
 
 static Button buttons[] = {
