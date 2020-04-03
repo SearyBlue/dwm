@@ -7,7 +7,7 @@ static const int systraypinningfailfirst = 1;
 static const int showsystray        = 1;     
 static const int showbar            = 1;        
 static const int topbar             = 0;        
-static const char *fonts[]          = {"Source Code Pro:size=11:style=bold", "Font Awesome 5 Brands Regular:size=11:style=bold", "Font Awesome 5 Free Solid:size=11:style=bold", "Font Awesome 5 Free Regular:size=11:style=bold"};
+static const char *fonts[]          = {"DroidSansMono Nerd Font:size=12:style=bold"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#0d1011";
 static const char col_cyan[]        = "#0055ff";
@@ -20,7 +20,8 @@ static const char *colors[][3]      =
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
 };
 
-static const char *tags[] = { "", "", "", "", "", "", ""};
+// static const char *tags[] = { " ", " ", " ", "",  "", "", ""};
+static const char *tags[] = { "H", "He", "Li", "Be",  "B", "C", "Ni"};
 
 static const Rule rules[] = {
 	{ "firefox", NULL, "Mozilla Firefox",       	1<<0,     	1, 1,			0,           -1 },
@@ -62,9 +63,9 @@ static const int nmaster     = 1;
 static const int resizehints = 0;  
 static const Layout layouts[] = 
 {
-	{ "",      tile },
-	{ "",      NULL },
-	{ "M",      monocle },};
+	{ "[]=",      tile },    /* first entry is default */
+	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[M]",      monocle },};
 
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
@@ -76,7 +77,7 @@ static const Layout layouts[] =
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-static const char drun[] = {"st -c float-term bash -c 'find ${PATH//:/ } -maxdepth 1 -executable | fzf -m > ~/.cache/drunout'; [ -s $HOME/.cache/drunout ] && $(cat $HOME/.cache/drunout); rm -f $HOME/.cache/drunout"};
+static const char drun[] = {"st -c float-term bash -c 'find ${PATH//:/ } -maxdepth 1 -executable | xargs -n1 -d \"\n\" basename | fzf -m > ~/.cache/fzfout'; [ -s $HOME/.cache/fzfout ] && $(cat $HOME/.cache/fzfout)"};
 static const char rel[] = {"st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && pkill dwm || read\""};
 static const char edit[] = {"vimmer"};
 static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
@@ -85,7 +86,7 @@ static const char file[] = {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -
 static const char forcefile[] = {"st ranger"};
 static const char term[] = {"wmctrl -lp | grep $(pgrep -fx -n 'st') | awk '{print $1}' | xargs wmctrl -ia || st"};
 static const char forceterm[] = {"st"};
-static const char net[] = {"st -c float-term bash -c \"network\""};
+static const char net[] = {"st -c float-term bash -c '(echo \"nmcli radio wifi on\"; echo \"nmcli radio wifi off\"; nmcli -t connection show | cut -d ':' -f1) | fzf | head -n 1 > ~/.cache/fzfout'; network \"$(cat ~/.cache/fzfout)\""};
 static const char seekb[] = {"mocp --seek -10"};
 static const char seekf[] = {"mocp --seek +10"};
 static const char seekbb[] = {"mocp --seek -50"};
@@ -118,7 +119,7 @@ static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
 static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && volume-show"};
 static const char vold[] = {"amixer set Master unmute && amixer set Master 0.75db- && volume-show"};
-static const char calc[] = {"st -c float-term qalc"};// while expr=$((echo -e \"${expr}\n\"; cat /home/kirito/.cache/functions) | fzf); do expr=$(qalc \"${expr}\"); done"};
+static const char calc[] = {"st -c float-term qalc"};
 static const char delwall[] = {"cat $HOME/.cache/wallpaper | xargs rm && (find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot cover $arg; echo $arg > $HOME/.cache/wallpaper; done' _) || notify-send 'Failed to delete wallpaper'"};
 static const char song[] = {"st -c float-term bash -c song-select"};
 static const char comp[] = {"pkill picom; picom --experimental-backends"};
@@ -133,8 +134,6 @@ static const char killx[] = {"pkill xinit"};
 static const char zzz[] = {"systemctl suspend -i"};
 static const char reb[] = {"reboot"};
 static const char vimrc[] = {"vimmer ~/.vim/vimrc"};
-static const char finder[] = {"st -c float-term bash -c \"find -P ~ -writable -type f ! -path */.git* ! -path *.mp3 ! -path *.mp4 ! -path *.mkv ! -path *.pdf ! -path *.djvu ! -path *.png ! -path *.jpg | grep -v 'Permission denied' | fzf | xargs vimmer\"" };
-static const char finder_local[] = {"st -c float-term bash -c 'vim --servername 'VIM SERVER' --remote-expr \"execute(\"pwd\")\" | xargs find | grep -v \"Permission denied\" | fzf | xargs vimmer'" };
 
 static Key keys[] = {
 	{ MODKEY|ControlMask,				XK_b,      			togglebar,      	{0} },
@@ -219,8 +218,6 @@ static Key keys[] = {
     { MODKEY|ShiftMask,              	XK_x,        		spawn,       		SHCMD(killx) },
     { MODKEY|ShiftMask,             	XK_s,       		spawn,     	   		SHCMD(zzz) },
     { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   		SHCMD(reb) },
-    { MODKEY,                 XK_o,                   spawn,                          SHCMD(finder) },
-    { MODKEY|ShiftMask,                 XK_o,                   spawn,                          SHCMD(finder_local) },
 };
 
 static Button buttons[] = {
