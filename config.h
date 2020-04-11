@@ -7,10 +7,10 @@ static const int systraypinningfailfirst = 1;
 static const int showsystray        = 1;     
 static const int showbar            = 1;        
 static const int topbar             = 0;        
-static const char *fonts[]          = {"DroidSansMono Nerd Font:size=12:style=bold"};
+static const char *fonts[]          = {"Source Code Pro:style=semibold:size=13","DroidSansMono Nerd Font:size=12"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#0d1011";
-static const char col_cyan[]        = "#0055ff";
+static const char col_cyan[]        = "#ff3322";
 static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#000000";
 static const char col_gray[]        = "#1d1f21";
@@ -20,42 +20,32 @@ static const char *colors[][3]      =
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
 };
 
-// static const char *tags[] = { " ", " ", " ", "",  "", "", ""};
-static const char *tags[] = { "H", "He", "Li", "Be",  "B", "C", "Ni"};
+static const char *tags[] = { " ", " ", " ", "",  "", "", ""};
+//static const char *tags[] = { "H", "He", "Li", "Be",  "B", "C", "Ni"};
 
 static const Rule rules[] = {
-	{ "firefox", NULL, "Mozilla Firefox",       	1<<0,     	1, 1,			0,           -1 },
-	{ "Waterfox","Navigator",  "Waterfox Current",   1<<0,     	1, 1,			0,           -1 },
-	{ "Chromium","chromium",  NULL,   1<<0,     	1, 1,			0,           -1 },
-	{ "Brave-browser", NULL, NULL,   1<<0,     	1, 1,			0,           -1 },
-	{ NULL, NULL, "Preferences", 	1<<0,     	1, 1,			1,           -1 },
-	{ "Waterfox",  "Places",  			NULL,   						0,     		0, 1,			1,           -1 },
-	{ NULL,  	   NULL,  "Waterfox Classic",   	1<<0,     	1, 1,			0,           -1 },
-	{ "st-256color",  			"st",    "ranger",	1<<1,     	1, 1,			0,           -1 },
-	{ "st-256color",  			"st",    "nnn",		1<<1,     	1, 1,			0,           -1 },
-	{ "st-256color",				"st",     "st",       1<<2,     	1, 1,			0,           -1 },
-	{ "Subl3",  		NULL,  "Sublime Text",  	1<<3,     	1, 1,			0,           -1 },
-	{ "st-256color",  "VIM SERVER",  NULL,  	1<<3,     	1, 1,			0,           -1 },
-	{ "Zathura",  		NULL,       NULL,       	1<<4,     	1, 1,			1,           -1 },
-	{"Transmission-gtk",NULL,       NULL,       	1<<5,      	1, 			1,			1,           -1 },
-	{NULL,       NULL,  "ytop",    	1<<6,      	0, 			1,			0,           -1 },
-	{ "Evince",  		NULL,       NULL,       	1<<4,     	1, 1,			1,           -1 },
-	{ NULL, 			NULL,  "LibreOffice",   	1<<5,     	1, 1,			1,           -1 },
-	{ "float-term",  	NULL,       NULL,       	 0,      	0,	 		1,			1,           -1 },
-	{"st-256color",		NULL,        "mutt",   		0,      	0,	 		1,			1,           -1 },
-	{NULL,       		NULL,        "qalc",   		0,      	0,	 		1,			1,           -1 },
-	{ "Pqiv",			NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
-	{ "Mtpaint",		NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
-	{ "mpv",			NULL,       NULL,        	0,      	0,	 		1,			0,           -1 },
-	{"Lxappearance",	NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
-	{NULL,	NULL, "/home/kirito/.cache/manpages/",       1<<2,      	0,	 		1,			1,           -1 },
-	{"Gnuplot",			NULL,       NULL,        	0,      	0,	 		1,			1,           -1 },
-	{"St",				NULL,     "mocp",        	0,      	0,	 		1,			1,           -1 },
-	{NULL,		"gpartedbin",       NULL,        	0,      	0,	 		1,			1,           -1 },
-	{"Nm-connection-editor", NULL,	NULL, 			0,      	0,	 		1,			1,           -1 },
-	{"Matplotlib", NULL,	NULL,  0,      	0,	 		1,			1,           -1 },
-	{NULL,NULL, "Default (Linux).sublime-keymap",       				0,      	0,	 		1,			1,           -1 },
-	{NULL,NULL, "Preferences.sublime-settings - Sublime Text",			0,      	0,	 		1,			1,           -1 },
+	// class     instance   title                  tag              swtch   cent   float    mon
+        { "firefox", NULL, "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
+	{ "Waterfox","Navigator",  "Waterfox Current",  1<<0,           1,      1,      0,      -1 },
+	{ "st-256color",	"st",    "ranger",	1<<1,           1,      1,      0,      -1 },
+	{ "st-256color","st",     "st",                 1<<2,           1,      1,      0,      -1 },
+	{ "Subl3",NULL,  "Sublime Text",  	        1<<3,           1,      1,      0,      -1 },
+	{ "st-256color",  "VIM SERVER",  NULL,  	1<<3,           1,      1,      0,      -1 },
+	{ "tabbed", "zathura",       NULL,       	        1<<4,           1,      1,      0,      -1 },
+	{"Transmission-gtk",NULL,       NULL,       	1<<5,           1,      1,      1,      -1 },
+	{ NULL, 	NULL,  "LibreOffice",   	1<<5,           1,      1,	1,      -1 },
+	{ "float-term",  	NULL,       NULL,       0,              0,      1,	1,      -1 },
+	{"st-256color",		NULL,        "mutt",    0,              0,      1,	1,      -1 },
+	{NULL,     NULL,        "qalc",                 0,              0,      1,      1,      -1 },
+	{ "feh",	NULL,       NULL,        	0,              0,      1,	1,      -1 },
+	{ "Mtpaint",		NULL,       NULL,       0,              0,      1,	1,      -1 },
+	{ "mpv",		NULL,       NULL,       0,              0,      1,	0,      -1 },
+	{"Lxappearance",	NULL,       NULL,       0,              0,      1,	1,      -1 },
+	{"Gnuplot",		NULL,       NULL,      	0,              0,      1,	1,      -1 },
+	{"St",			NULL,     "mocp",       0,              0,      1,	1,      -1 },
+	{NULL,		"gpartedbin",       NULL,       0,              0,      1,	1,      -1 },
+	{"Nm-connection-editor", NULL,	NULL, 		0,              0,      1,	1,      -1 },
+	{"Matplotlib", NULL,	NULL,                   0,              0,      1,	1,      -1 },
 };
 
 static const float mfact     = 0.5;
@@ -76,9 +66,8 @@ static const Layout layouts[] =
     { MODKEY|Mod1Mask, 				KEY,      view,      	{.ui = 1 << TAG} },
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-
-static const char drun[] = {"st -c float-term bash -c 'find ${PATH//:/ } -maxdepth 1 -executable | xargs -n1 -d \"\n\" basename | fzf -m > ~/.cache/fzfout'; [ -s $HOME/.cache/fzfout ] && $(cat $HOME/.cache/fzfout)"};
-static const char rel[] = {"st -c float-term bash -ic \"cd /home/kirito/.config/dwm; make install && pkill dwm || read\""};
+static const char drun[] = {"dmenu_run"};
+static const char rel[] = {"dwm_reload"};
 static const char edit[] = {"vimmer"};
 static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
@@ -86,7 +75,7 @@ static const char file[] = {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -
 static const char forcefile[] = {"st ranger"};
 static const char term[] = {"wmctrl -lp | grep $(pgrep -fx -n 'st') | awk '{print $1}' | xargs wmctrl -ia || st"};
 static const char forceterm[] = {"st"};
-static const char net[] = {"st -c float-term bash -c '(echo \"nmcli radio wifi on\"; echo \"nmcli radio wifi off\"; nmcli -t connection show | cut -d ':' -f1) | fzf | head -n 1 > ~/.cache/fzfout'; network \"$(cat ~/.cache/fzfout)\""};
+static const char net[] = {"(echo \"nmcli radio wifi on\"; echo \"nmcli radio wifi off\"; nmcli -t connection show | cut -d ':' -f1) | dmenu | head -n 1 | xargs -r network"};
 static const char seekb[] = {"mocp --seek -10"};
 static const char seekf[] = {"mocp --seek +10"};
 static const char seekbb[] = {"mocp --seek -50"};
@@ -96,14 +85,14 @@ static const char sshot[] = {"gnome-screenshot -f /storage/pictures/$(date '+%F_
 static const char sshotint[] = {"name=/storage/pictures/$(date '+%F_%T').png; gnome-screenshot -a -f ${name} && pqiv ${name}"};
 static const char dwmconf[] = {"vimmer ~/.config/dwm/config.h"};
 static const char unm[] = {"unmount"};
-static const char hkp[] = {"st -c float-term bash -ic \"hkp\""};
-static const char mdown[] = {"st -c float-term bash -ic \"builtin cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl --extract-audio -i -audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\""};
-static const char down[] = {"st -c float-term bash -ic \"cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl -i && notify-send 'Download omplete' || notify-send 'Download Failed'\""};
+static const char hkp[] = {"st -c 'float-term' -g 130x30 bash -ic \"hkp\""};
+static const char mdown[] = {"st -c 'float-term' -g 130x30 bash -ic \"builtin cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl --extract-audio -i -audio-format mp3 && notify-send 'Download Complete' || notify-send 'Download Failed'\""};
+static const char down[] = {"st -c 'float-term' -g 130x30 bash -ic \"cd $HOME/storage/downloads/; xclip -o | xargs youtube-dl -i && notify-send 'Download omplete' || notify-send 'Download Failed'\""};
 static const char mutt[] = {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
 static const char mnt[] = {"mount-all"};
 static const char rangconf[] = {"vimmer ~/.config/ranger/rc.conf"};
-static const char taskm[] ={"st -c float-term bash -c \"ps h -e -o comm,%cpu,%mem --sort -%mem | fzf | cut -d ' ' -f1 | xargs -r -n1 -d '\n' pkill\""};
-static const char wall[] = {"find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot -cover $arg; echo $arg > $HOME/.cache/allpaper; done' _"};
+static const char taskm[] ={"ps h -e -o comm,%cpu,%mem --sort -%mem | dmenu -l 20 | cut -d ' ' -f1 | xargs -r -n1 -d '\n' pkill"};
+static const char wall[] = {"/usr/bin/feh --bg-fill --randomize ~/storage/walls"};
 static const char searchd[] = {"search -d"};
 static const char searchw[] = {"search -w"};
 static const char searchy[] = {"search -y"};
@@ -113,24 +102,24 @@ static const char searchl[] = {"search -l"};
 static const char searcha[] = {"search -a"};
 static const char searchf[] = {"search -f"};
 static const char searchm[] = {"search -m"};
-static const char book[] = {"st -c 'float-term' bash -c open_book"}; 
-static const char conf[] = {"st -c float-term bash -c \"find $HOME/.config/ -maxdepth 2 -type f ! -path */.git* ! -path *.mp3 ! -path *.mp4 ! -path *.mkv ! -path *.pdf ! -path *.djvu ! -path *.png ! -path *.jpg | fzf -m | xargs vimmer\""};
+static const char book[] = {"find ~ -type f -iname \"*.pdf\" -o -iname \"*.djvu\" 2>/dev/null | dmenu -l 30 | xargs -r -d '\n' zathura_tabbed"}; 
+static const char conf[] = {"finder ~/.config/ -maxdepth 2 | dmenu -l 30 | xargs -r vimmer"};
 static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
 static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && volume-show"};
 static const char vold[] = {"amixer set Master unmute && amixer set Master 0.75db- && volume-show"};
-static const char calc[] = {"st -c float-term qalc"};
+static const char calc[] = {"st -c 'float-term' -g 130x30 qalc"};
 static const char delwall[] = {"cat $HOME/.cache/wallpaper | xargs rm && (find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot cover $arg; echo $arg > $HOME/.cache/wallpaper; done' _) || notify-send 'Failed to delete wallpaper'"};
-static const char song[] = {"st -c float-term bash -c song-select"};
+static const char song[] = {"song-select"};
 static const char comp[] = {"pkill picom; picom --experimental-backends"};
 static const char mocp[] = {"st mocp"};
-static const char plot[] = {"st -c float-term gnuplot"};
+static const char plot[] = {"st -c 'float-term' -g 130x30 gnuplot"};
 static const char fulls[] = {"wmctrl -r :ACTIVE: -b toggle,fullscreen"};
-static const char change[] = {"st -c float-term bash -c \"wmctrl -l | fzf | cut -d ' ' -f1 | xargs wmctrl -ia\""};
+static const char change[] = {"wmctrl -l | dmenu | cut -d ' ' -f1 | xargs -r wmctrl -ia"};
 static const char firepref[] = {"firefox --preferences"};
 static const char lock[] = {"slock"};
-static const char unin[] = {"st -c float-term bash -c \"yay -Qttq | fzf | xargs -r yay -Rns -\""};
-static const char killx[] = {"pkill xinit"};
+static const char unin[] = {"st -c 'float-term' -g 50x30 bash -c \"yay -Qttq | fzf | xargs -r yay -Rns -\""};
+static const char killx[] = {"touch ~/.cache/slock_prevent; pkill xinit"};
 static const char zzz[] = {"systemctl suspend -i"};
 static const char reb[] = {"reboot"};
 static const char vimrc[] = {"vimmer ~/.vim/vimrc"};
