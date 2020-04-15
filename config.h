@@ -20,7 +20,7 @@ static const char *colors[][3]      =
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
 };
 
-static const char *tags[] = { " ", " ", " ", "",  "", "", ""};
+static const char *tags[] = { "", "", "", "",  "", "", ""};
 //static const char *tags[] = { "H", "He", "Li", "Be",  "B", "C", "Ni"};
 
 static const Rule rules[] = {
