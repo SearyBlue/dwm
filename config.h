@@ -10,14 +10,14 @@ static const int topbar             = 0;
 static const char *fonts[]          = {"Source Code Pro:style=semibold:size=13","DroidSansMono Nerd Font:size=12"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#1a1a1a";
-static const char col_cyan[]        = "#ff3322";
+static const char col_cyan[]        = "#333333";
 static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#000000";
 static const char col_gray[]        = "#1d1f21";
 static const char *colors[][3]      = 
 {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray4 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
+	[SchemeSel]  = { col_gray3, col_cyan,  col_cyan },
 };
 
 //static const char *tags[] = { "", "", "", "",  "", "", ""};
