@@ -1,4 +1,4 @@
-pkgname=dwm
+pkgname=dwm-kirito
 gitname=dwm
 pkgver=6.2
 pkgrel=1

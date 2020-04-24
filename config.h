@@ -9,10 +9,10 @@ static const int showbar            = 1;
 static const int topbar             = 0;        
 static const char *fonts[]          = {"Source Code Pro:style=semibold:size=13","DroidSansMono Nerd Font:size=12"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
-static const char col_gray1[]       = "#0d1011";
+static const char col_gray1[]       = "#1a9999";
 static const char col_cyan[]        = "#ff3322";
 static const char col_gray3[]       = "#ffffff";
-static const char col_gray4[]       = "#000000";
+static const char col_gray4[]       = "#0000ff";
 static const char col_gray[]        = "#1d1f21";
 static const char *colors[][3]      = 
 {
@@ -20,8 +20,8 @@ static const char *colors[][3]      =
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
 };
 
-static const char *tags[] = { "", "", "", "",  "", "", ""};
-//static const char *tags[] = { "H", "He", "Li", "Be",  "B", "C", "Ni"};
+/* static const char *tags[] = { "", "", "", "",  "", "", ""}; */
+static const char *tags[] = { "H", "He", "Li", "Be",  "B", "C", "Ni"}; 
 
 static const Rule rules[] = {
 	// class     instance   title                  tag              swtch   cent   float    mon
