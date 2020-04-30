@@ -21,7 +21,6 @@
  * To understand everything else, start reading main().
  */
 #include <errno.h>
-#include <fcntl.h>
 #include <locale.h>
 #include <signal.h>
 #include <stdarg.h>
@@ -29,7 +28,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/select.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <X11/cursorfont.h>
@@ -85,8 +83,8 @@ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
 enum { Manager, Xembed, XembedInfo, XLast }; /* Xembed atoms */
 enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
-enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkClientWin,
-       ClkRootWin, ClkLast }; /* clicks */
+enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
+       ClkClientWin, ClkRootWin, ClkLast }; /* clicks */
 
 typedef union {
 	int i;
@@ -173,12 +171,6 @@ struct Systray {
 	Client *icons;
 };
 
-typedef struct {
-	const char *name;
-	void (*func)(const Arg *arg);
-	const Arg arg;
-} Command;
-
 /* function declarations */
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
@@ -195,7 +187,6 @@ static void configure(Client *c);
 static void configurenotify(XEvent *e);
 static void configurerequest(XEvent *e);
 static Monitor *createmon(void);
-static void dispatchcmd(void);
 static void destroynotify(XEvent *e);
 static void detach(Client *c);
 static void detachstack(Client *c);
@@ -203,7 +194,6 @@ static void detachstack(Client *c);
 static void drawbar(Monitor *m);
 static void drawbars(void);
 static void enternotify(XEvent *e);
-static Bool evpredicate();
 static void expose(XEvent *e);
 static void focus(Client *c);
 static void focusin(XEvent *e);
@@ -320,7 +310,6 @@ static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
-static int fifofd;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -557,7 +546,6 @@ cleanup(void)
 	XSync(dpy, False);
 	XSetInputFocus(dpy, PointerRoot, RevertToPointerRoot, CurrentTime);
 	XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
-	close(fifofd);
 }
 
 void
@@ -776,26 +764,6 @@ destroynotify(XEvent *e)
 }
 
 void
-dispatchcmd(void)
-{
-	int i;
-	char buf[BUFSIZ];
-	ssize_t n;
-
-	n = read(fifofd, buf, sizeof(buf) - 1);
-	if (n == -1)
-		die("Failed to read() from DWM fifo %s:", dwmfifo);
-	buf[n] = '\0';
-	buf[strcspn(buf, "\n")] = '\0';
-	for (i = 0; i < LENGTH(commands); i++) {
-		if (strcmp(commands[i].name, buf) == 0) {
-			commands[i].func(&commands[i].arg);
-			break;
-		}
-	}
-}
-
-void
 detach(Client *c)
 {
 	Client **tc;
@@ -874,15 +842,15 @@ drawbar(Monitor *m)
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
 	if ((w = m->ww - sw - stw - x) > bh) {
-		/* if (m->sel) { */
-		/* 	drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]); */
-		/* 	drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0); */
-		/* 	if (m->sel->isfloating) */
-		/* 		drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0); */
-		/* } else { */
+		if (m->sel) {
+			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+			if (m->sel->isfloating)
+				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
 			drw_rect(drw, x, 0, w, bh, 1, 1);
-		/* } */
+		}
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww - stw, bh);
 }
@@ -913,12 +881,6 @@ enternotify(XEvent *e)
 	} else if (!c || c == selmon->sel)
 		return;
 	focus(c);
-}
-
-Bool
-evpredicate()
-{
-	return True;
 }
 
 void
@@ -1172,6 +1134,7 @@ keypress(XEvent *e)
 void
 killclient(const Arg *arg)
 {
+        system("killwin");
 	if (!selmon->sel)
 		return;
 	if (!sendevent(selmon->sel->win, wmatom[WMDelete], NoEventMask, wmatom[WMDelete], CurrentTime, 0 , 0, 0)) {
@@ -1430,8 +1393,11 @@ propertynotify(XEvent *e)
 			drawbars();
 			break;
 		}
-		if (ev->atom == XA_WM_NAME || ev->atom == netatom[NetWMName])
+		if (ev->atom == XA_WM_NAME || ev->atom == netatom[NetWMName]) {
 			updatetitle(c);
+			if (c == c->mon->sel)
+				drawbar(c->mon);
+		}
 		if (ev->atom == netatom[NetWMWindowType])
 			updatewindowtype(c);
 	}
@@ -1628,30 +1594,11 @@ void
 run(void)
 {
 	XEvent ev;
-	fd_set rfds;
-	int n;
-	int dpyfd, maxfd;
 	/* main event loop */
 	XSync(dpy, False);
-	dpyfd = ConnectionNumber(dpy);
-	maxfd = fifofd;
-	if (dpyfd > maxfd)
-		maxfd = dpyfd;
-	maxfd++;
-	while (running) {
-		FD_ZERO(&rfds);
-		FD_SET(fifofd, &rfds);
-		FD_SET(dpyfd, &rfds);
-		n = select(maxfd, &rfds, NULL, NULL, NULL);
-		if (n > 0) {
-			if (FD_ISSET(fifofd, &rfds))
-				dispatchcmd();
-			if (FD_ISSET(dpyfd, &rfds))
-				while (XCheckIfEvent(dpy, &ev, evpredicate, NULL))
-					if (handler[ev.type])
-						handler[ev.type](&ev); /* call handler */
-		}
-	}
+	while (running && !XNextEvent(dpy, &ev))
+		if (handler[ev.type])
+			handler[ev.type](&ev); /* call handler */
 }
 
 void
@@ -1904,9 +1851,6 @@ setup(void)
 	XSelectInput(dpy, root, wa.event_mask);
 	grabkeys();
 	focus(NULL);
-	fifofd = open(dwmfifo, O_RDWR | O_NONBLOCK);
-	if (fifofd < 0)
-		die("Failed to open() DWM fifo %s:", dwmfifo);
 }
 
 

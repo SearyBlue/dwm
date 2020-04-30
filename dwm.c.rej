@@ -1,22 +1,15 @@
 --- dwm.c
 +++ dwm.c
-@@ -170,9 +179,11 @@ static void destroynotify(XEvent *e);
- static void detach(Client *c);
- static void detachstack(Client *c);
- static Monitor *dirtomon(int dir);
-+static void dispatchcmd(void);
- static void drawbar(Monitor *m);
- static void drawbars(void);
- static void enternotify(XEvent *e);
-+static Bool evpredicate();
- static void expose(XEvent *e);
- static void focus(Client *c);
- static void focusin(XEvent *e);
-@@ -274,6 +285,7 @@ static Display *dpy;
- static Drw *drw;
- static Monitor *mons, *selmon;
- static Window root;
-+static int fifofd;
+@@ -1215,10 +1166,8 @@ propertynotify(XEvent *e)
+ 	Window trans;
+ 	XPropertyEvent *ev = &e->xproperty;
  
- /* configuration, allows nested code to access above variables */
- #include "config.h"
+-	if ((ev->window == root) && (ev->atom == XA_WM_NAME)) {
+-		if (!fake_signal())
+-			updatestatus();
+-	}
++	if ((ev->window == root) && (ev->atom == XA_WM_NAME))
++		updatestatus();
+ 	else if (ev->state == PropertyDelete)
+ 		return; /* ignore */
+ 	else if ((c = wintoclient(ev->window))) {

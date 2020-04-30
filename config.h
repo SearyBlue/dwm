@@ -1,4 +1,4 @@
-static const unsigned int borderpx  = 2;
+const unsigned int borderpx  = 2;
 static const unsigned int gappx     = 5;
 static const unsigned int snap      = 32;       
 static const unsigned int systraypinning = 0;   
@@ -10,17 +10,16 @@ static const int topbar             = 0;
 static const char *fonts[]          = {"Source Code Pro:style=semibold:size=13","DroidSansMono Nerd Font:size=12"};
 static const char dmenufont[]       = "Hack Nerd Font:size=12";
 static const char col_gray1[]       = "#1a1a1a";
-static const char col_cyan[]        = "#333333";
+static const char col_cyan[]        = "#8888ff";
 static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#000000";
 static const char col_gray[]        = "#1d1f21";
 static const char *colors[][3]      = 
 {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray4 },
-	[SchemeSel]  = { col_gray3, col_cyan,  col_cyan },
+	[SchemeSel]  = { col_cyan, col_gray1, col_cyan },
 };
 
-//static const char *tags[] = { "", "", "", "",  "", "", ""};
 static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
 
 static const Rule rules[] = {
@@ -41,7 +40,8 @@ static const Rule rules[] = {
 	{ "Mtpaint",		NULL,       NULL,       0,              0,      1,	1,      -1 },
 	{ "mpv",		NULL,       NULL,       0,              0,      1,	0,      -1 },
 	{"Lxappearance",	NULL,       NULL,       0,              0,      1,	1,      -1 },
-	{"Gnuplot",		NULL,       NULL,      	0,              0,      1,	1,      -1 },
+	{"gnuplot_qt", "gnuplot_qt",       NULL,      	1<<6,           1,      1,	0,      -1 },
+	{"Gnuplot",		"gnuplot",       NULL,  1<<6,           1,      1,	0,      -1 },
 	{"St",			NULL,     "mocp",       0,              0,      1,	1,      -1 },
 	{NULL,		"gpartedbin",       NULL,       0,              0,      1,	1,      -1 },
 	{"Nm-connection-editor", NULL,	NULL, 		0,              0,      1,	1,      -1 },
@@ -67,7 +67,7 @@ static const Layout layouts[] =
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 static const char drun[] = {"dmenu_run -l 20 -x 0 -wi 300"};
-static const char rel[] = {"dwm_reload"};
+static const char rel[] = {"st -c float-term dwm_reload"};
 static const char edit[] = {"vimmer"};
 static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
@@ -81,8 +81,8 @@ static const char seekf[] = {"mocp --seek +10"};
 static const char seekbb[] = {"mocp --seek -50"};
 static const char seekfb[] = {"mocp --seek +50"};
 static const char nettogg[] = {"nmcli radio wifi | grep disable && nmcli radio wifi on || nmcli radio wifi off"};
-static const char sshot[] = {"gnome-screenshot -f /storage/pictures/$(date '+%F_%T').png"};
-static const char sshotint[] = {"name=/storage/pictures/$(date '+%F_%T').png; gnome-screenshot -a -f ${name} && pqiv ${name}"};
+static const char sshot[] = {"scrot -zf -e '/usr/bin/feh  --scale-down $f; mv $f /home/kirito/storage/pictures'"};
+static const char sshoti[] = {"sleep 0.1; scrot -s zf -e '/usr/bin/feh  --scale-down $f; mv $f /home/kirito/storage/pictures'"};
 static const char dwmconf[] = {"vimmer ~/.config/dwm/config.h"};
 static const char unm[] = {"unmount"};
 static const char hkp[] = {"st -c 'float-term' -g 130x30 bash -ic \"hkp\""};
@@ -115,7 +115,7 @@ static const char comp[] = {"pkill picom; picom --experimental-backends"};
 static const char mocp[] = {"st mocp"};
 static const char plot[] = {"st -c 'float-term' -g 130x30 gnuplot"};
 static const char fulls[] = {"wmctrl -r :ACTIVE: -b toggle,fullscreen"};
-static const char change[] = {"wmctrl -l | dmenu | cut -d ' ' -f1 | xargs -r wmctrl -ia"};
+static const char change[] = {"wmctrl -l | dmenu -l 10 | cut -d ' ' -f1 | xargs -r wmctrl -ia"};
 static const char firepref[] = {"firefox --preferences"};
 static const char lock[] = {"slock"};
 static const char unin[] = {"st -c 'float-term' -g 50x30 bash -c \"yay -Qttq | fzf | xargs -r yay -Rns -\""};
@@ -166,7 +166,7 @@ static Key keys[] = {
         { MODKEY|ControlMask,            	XK_j,        		spawn,       		SHCMD(seekfb) },
         { MODKEY|ShiftMask,			XK_n,        		spawn,       		SHCMD(nettogg) },
         { 0,                             	XK_Print,    		spawn,       		SHCMD(sshot) },
-        { MODKEY,                        	XK_Print,    		spawn,       		SHCMD(sshotint) },
+        { MODKEY,                        	XK_Print,    		spawn,       		SHCMD(sshoti) },
         { MODKEY,                        	XK_i,        		spawn,       		SHCMD(dwmconf) },
         { MODKEY,                        	XK_u,        		spawn,       		SHCMD(unm) },
         { MODKEY|ShiftMask,			XK_u,        		spawn,       		SHCMD(hkp) },
@@ -207,7 +207,7 @@ static Key keys[] = {
         { MODKEY|ShiftMask,              	XK_x,        		spawn,       		SHCMD(killx) },
         { MODKEY|ShiftMask,             	XK_s,       		spawn,     	   		SHCMD(zzz) },
         { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   		SHCMD(reb) },
-	{ MODKEY,             			XK_x,      		spawn,     	                SHCMD(killwin)},
+	{ MODKEY,             				XK_x,      			killclient,     	{0} },
 };
 
 static Button buttons[] = {
@@ -222,9 +222,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         		Button3,        	toggletag,      		{0} },
 };
 
-
-
-static const char *dwmfifo = "/tmp/dwm.fifo";
-static Command commands[] = {
-	{ "killclient",      killclient,     {0} },
-};
