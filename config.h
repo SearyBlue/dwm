@@ -7,43 +7,45 @@ static const int systraypinningfailfirst = 1;
 static const int showsystray        = 1;     
 static const int showbar            = 1;        
 static const int topbar             = 0;        
-static const char *fonts[]          = {"Source Code Pro:style=semibold:size=13","DroidSansMono Nerd Font:size=12"};
-static const char dmenufont[]       = "Hack Nerd Font:size=12";
+
+static const char *fonts[]          = {"Fira Code:size=12:style=semibold","Iosevka Nerd Font:size=13"};
 static const char col_gray1[]       = "#1a1a1a";
-static const char col_cyan[]        = "#8888ff";
+static const char col_cyan[]        = "#3377aa";
 static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#000000";
 static const char col_gray[]        = "#1d1f21";
+
 static const char *colors[][3]      = 
 {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray4 },
-	[SchemeSel]  = { col_cyan, col_gray1, col_cyan },
+	[SchemeSel]  = { col_gray4, col_cyan, col_cyan },
 };
 
 static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
 
 static const Rule rules[] = {
 	// class     instance   title                  tag              swtch   cent   float    mon
-        { "firefox", NULL, "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
+        { "firefox", "Navigator", "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
+        { "Firefox", "Navigator", "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
 	{ "Waterfox","Navigator",  "Waterfox Current",  1<<0,           1,      1,      0,      -1 },
 	{ "st-256color",	"st",    "ranger",	1<<1,           1,      1,      0,      -1 },
 	{ "st-256color","st",     "st",                 1<<2,           1,      1,      0,      -1 },
 	{ "st-256color",  "VIM SERVER",  NULL,  	1<<3,           1,      1,      0,      -1 },
 	{ "tabbed", "zathura",       NULL,       	        1<<4,           1,      1,      0,      -1 },
-	{"Transmission-gtk",NULL,       NULL,       	1<<5,           1,      1,      1,      -1 },
-	{ NULL, 	NULL,  "LibreOffice",   	1<<5,           1,      1,	1,      -1 },
+	{ "Transmission-gtk",NULL,       NULL,       	1<<5,           1,      1,      1,      -1 },
+	{ NULL, 	NULL,  "LibreOffice",   	1<<5,           1,      1,	0,      -1 },
 	{ "float-term",  	NULL,       NULL,       0,              0,      1,	1,      -1 },
-	{"st-256color",		NULL,        "mutt",    0,              0,      1,	1,      -1 },
-	{NULL,     NULL,        "qalc",                 0,              0,      1,      1,      -1 },
+	{ "st-256color",		NULL,        "mutt",    0,              0,      1,	1,      -1 },
+	{ NULL,     NULL,        "qalc",                 0,              0,      1,      1,      -1 },
 	{ "feh",	NULL,       NULL,        	0,              0,      1,	1,      -1 },
 	{ "Mtpaint",		NULL,       NULL,       0,              0,      1,	1,      -1 },
 	{ "mpv",		NULL,       NULL,       0,              0,      1,	0,      -1 },
-	{"Lxappearance",	NULL,       NULL,       0,              0,      1,	1,      -1 },
-	{"Gnuplot",		"gnuplot",       NULL,  0,              1,      1,	1,      -1 },
-	{"St",			NULL,     "mocp",       0,              0,      1,	1,      -1 },
-	{NULL,		"gpartedbin",       NULL,       0,              0,      1,	1,      -1 },
-	{"Nm-connection-editor", NULL,	NULL, 		0,              0,      1,	1,      -1 },
-	{"Matplotlib", NULL,	NULL,                   0,              0,      1,	1,      -1 },
+	{ "Lxappearance",	NULL,       NULL,       0,              0,      1,	1,      -1 },
+	{ "Gnuplot",		"gnuplot",       NULL,  0,              1,      1,	1,      -1 },
+	{ "St",			NULL,     "mocp",       0,              0,      1,	1,      -1 },
+	{ NULL,		"gpartedbin",       NULL,       0,              0,      1,	1,      -1 },
+	{ "Nm-connection-editor", NULL,	NULL, 		0,              0,      1,	1,      -1 },
+	{ "Matplotlib", NULL,	NULL,                   0,              0,      1,	1,      -1 },
 };
 
 static const float mfact     = 0.5;
@@ -64,8 +66,8 @@ static const Layout layouts[] =
     { MODKEY|Mod1Mask, 				KEY,      view,      	{.ui = 1 << TAG} },
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-static const char drun[] = {"dmenu_run -l 20 -x 0 -wi 300"};
-static const char rel[] = {"st -c float-term dwm_reload"};
+static const char drun[] = {"dmenu_run"};
+static const char rel[] = {"st -c float-term bash -c \"sudo make -C ~/.config/dwm install && pkill dwm\""};
 static const char edit[] = {"vimmer"};
 static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
@@ -117,11 +119,11 @@ static const char change[] = {"wmctrl -l | dmenu -l 10 | cut -d ' ' -f1 | xargs 
 static const char firepref[] = {"firefox --preferences"};
 static const char lock[] = {"slock"};
 static const char unin[] = {"st -c 'float-term' -g 50x30 bash -c \"yay -Qttq | fzf | xargs -r yay -Rns -\""};
-static const char killx[] = {"touch ~/.cache/slock_prevent; pkill xinit"};
-static const char zzz[] = {"systemctl suspend -i"};
-static const char reb[] = {"reboot"};
+static const char zzz[] = {"loginctl suspend || systemctl suspend -i"};
+static const char reb[] = {"loginctl reboot || systemctl reboot"};
 static const char vimrc[] = {"vimmer ~/.vim/vimrc"};
 static const char killwin[] = {"killwin"};
+static const char killx[] = {"pkill xinit"};
 
 static Key keys[] = {
 	{ MODKEY|ControlMask,			XK_b,      			togglebar,      	{0} },
@@ -202,7 +204,7 @@ static Key keys[] = {
         { MODKEY, 				XK_v,       		spawn,     	   		SHCMD(vimrc) },
         { MODKEY|ShiftMask,             	XK_l,       		spawn,     	   		SHCMD(lock) },
         { MODKEY,                       	XK_p,       		spawn,     	   		SHCMD(unin) },
-        { MODKEY|ShiftMask,              	XK_x,        		spawn,       		SHCMD(killx) },
+        { MODKEY|ShiftMask,              	XK_x,        		spawn,       		        SHCMD(killx) },
         { MODKEY|ShiftMask,             	XK_s,       		spawn,     	   		SHCMD(zzz) },
         { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   		SHCMD(reb) },
 	{ MODKEY,             				XK_x,      			killclient,     	{0} },
