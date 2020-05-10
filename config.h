@@ -1,5 +1,5 @@
-const unsigned int borderpx  = 2;
-static const unsigned int gappx     = 5;
+static const unsigned int borderpx  = 3;
+static const unsigned int gappx     = 0;
 static const unsigned int snap      = 32;       
 static const unsigned int systraypinning = 0;   
 static const unsigned int systrayspacing = 5;   
@@ -18,7 +18,7 @@ static const char col_gray[]        = "#1d1f21";
 static const char *colors[][3]      = 
 {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray4 },
-	[SchemeSel]  = { col_gray4, col_cyan, col_cyan },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
 
 static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
