@@ -1184,10 +1184,10 @@ manage(Window w, XWindowAttributes *wa)
 		&& (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
 	c->bw = borderpx;
 
-	if(c->iscentered) {
-		c->x = (c->mon->mw - WIDTH(c)) / 2;
-		c->y = (c->mon->mh - HEIGHT(c)) / 2;
-	}
+//	if(c->iscentered) {
+//		c->x = (c->mon->mw - WIDTH(c)) / 2;
+//		c->y = (c->mon->mh - HEIGHT(c)) / 2;
+//	}
 
 	wc.border_width = c->bw;
 	if (c->x == selmon->wx) c->x += (c->mon->ww - WIDTH(c)) / 2 - c->bw;
@@ -1485,10 +1485,10 @@ resizeclient(Client *c, int x, int y, int w, int h)
 	c->oldy = c->y; c->y = wc.y = y + gapoffset;
 	c->oldw = c->w; c->w = wc.width = w - gapincr;
 	c->oldh = c->h; c->h = wc.height = h - gapincr;
-	if(c->isfloating && c->iscentered) {
-		c->x = (c->mon->mw - WIDTH(c)) / 2;
-		c->y = (c->mon->mh - HEIGHT(c)) / 2;
-	}
+//	if(c->isfloating && c->iscentered) {
+//		c->x = (c->mon->mw - WIDTH(c)) / 2;
+//		c->y = (c->mon->mh - HEIGHT(c)) / 2;
+//	}
 
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);

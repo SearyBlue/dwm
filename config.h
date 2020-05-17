@@ -66,6 +66,7 @@ static const Layout layouts[] =
     { MODKEY|Mod1Mask, 				KEY,      view,      	{.ui = 1 << TAG} },
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+
 static const char drun[] = {"dmenu_run"};
 static const char rel[] = {"st -c float-term bash -c \"sudo make -C ~/.config/dwm install && pkill dwm\""};
 static const char edit[] = {"vimmer"};
@@ -102,7 +103,7 @@ static const char searchl[] = {"search -l"};
 static const char searcha[] = {"search -a"};
 static const char searchf[] = {"search -f"};
 static const char searchm[] = {"search -m"};
-static const char book[] = {"find ~/storage -type f -iname \"*.pdf\" -o -iname \"*.djvu\" 2>/dev/null | dmenu -l 30 | xargs -r -d '\n' zathura_tabbed"}; 
+static const char book[] = {"cd ~/storage; find . -type f -iname \"*.pdf\" -o -iname \"*.djvu\" 2>/dev/null | sort -bdfi | dmenu -l 30 | xargs -r -d '\n' zathura_tabbed"}; 
 static const char conf[] = {"finder ~/.config/ -maxdepth 2 | dmenu -l 30 | xargs -r vimmer"};
 static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
