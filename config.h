@@ -38,6 +38,7 @@ static const Rule rules[] = {
 	{ "st-256color",		NULL,        "mutt",    0,              0,      1,	1,      -1 },
 	{ NULL,     NULL,        "qalc",                 0,              0,      1,      1,      -1 },
 	{ "feh",	NULL,       NULL,        	0,              0,      1,	1,      -1 },
+	{ "Display","display",  NULL,        	0,              0,      1,	1,      -1 },
 	{ "Mtpaint",		NULL,       NULL,       0,              0,      1,	1,      -1 },
 	{ "mpv",		NULL,       NULL,       0,              0,      1,	0,      -1 },
 	{ "Lxappearance",	NULL,       NULL,       0,              0,      1,	1,      -1 },
