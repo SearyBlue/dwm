@@ -8,7 +8,7 @@ static const int showsystray        = 1;
 static const int showbar            = 1;        
 static const int topbar             = 0;        
 
-static const char *fonts[]          = {"Fira Code:size=12:style=semibold","Iosevka Nerd Font:size=13"};
+static const char *fonts[]          = {"Fira Code:size=12:style=semibold", "JoyPixels:pixelsize=17:antialias=true:autohint=true","Iosevka Nerd Font:size=13"};
 static const char col_gray1[]       = "#1a1a1a";
 static const char col_cyan[]        = "#3377aa";
 static const char col_gray3[]       = "#ffffff";
@@ -18,10 +18,11 @@ static const char col_gray[]        = "#1d1f21";
 static const char *colors[][3]      = 
 {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray4 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray3, col_gray1,  col_cyan  },
 };
 
-static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
+static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📜", "📉", "🗑 "};
+//static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
 
 static const Rule rules[] = {
 	// class     instance   title                  tag              swtch   cent   float    mon
@@ -69,7 +70,7 @@ static const Layout layouts[] =
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 static const char drun[] = {"dmenu_run"};
-static const char rel[] = {"st -c float-term bash -c \"sudo make -C ~/.config/dwm install && pkill dwm\""};
+static const char rel[] = {"make -C ~/.config/dwm install > ~/.cache/dwmoutput && pkill dwm || st bash -c \"less /home/kirito/.cache/dwmoutput\""};
 static const char edit[] = {"vimmer"};
 static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
@@ -108,8 +109,8 @@ static const char book[] = {"cd ~/storage; find . -type f -iname \"*.pdf\" -o -i
 static const char conf[] = {"finder ~/.config/ -maxdepth 2 | dmenu -l 30 | xargs -r vimmer"};
 static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
-static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && volume-show"};
-static const char vold[] = {"amixer set Master unmute && amixer set Master 0.75db- && volume-show"};
+static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && pkill -SIGRTMIN+8 dwmblocks"};
+static const char vold[] = {"amixer set Master unmute && amixer set Master 0.75db- && pkill -SIGRTMIN+8 dwmblocks"};
 static const char calc[] = {"st -c 'float-term' -g 130x30 qalc"};
 static const char delwall[] = {"cat $HOME/.cache/wallpaper | xargs rm && (find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot cover $arg; echo $arg > $HOME/.cache/wallpaper; done' _) || notify-send 'Failed to delete wallpaper'"};
 static const char song[] = {"song-select"};
