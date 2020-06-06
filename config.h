@@ -6,12 +6,12 @@ static const unsigned int systrayspacing = 5;
 static const int systraypinningfailfirst = 1;   
 static const int showsystray        = 1;     
 static const int showbar            = 1;        
-static const int topbar             = 0;        
+static const int topbar             = 1;        
 
 static const char *fonts[]          = {"Fira Code:size=12:style=semibold", "JoyPixels:pixelsize=17:antialias=true:autohint=true","Iosevka Nerd Font:size=13"};
-static const char col_gray1[]       = "#1a1a1a";
+static const char col_gray1[]       = "#000";
 static const char col_cyan[]        = "#3377aa";
-static const char col_gray3[]       = "#ffffff";
+static const char col_gray3[]       = "#fff";
 static const char col_gray4[]       = "#000000";
 static const char col_gray[]        = "#1d1f21";
 
@@ -21,7 +21,7 @@ static const char *colors[][3]      =
 	[SchemeSel]  = { col_gray3, col_gray1,  col_cyan  },
 };
 
-static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📜", "📉", "🗑 "};
+static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📙", "📉", "🗑 "};
 //static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
 
 static const Rule rules[] = {
@@ -70,7 +70,7 @@ static const Layout layouts[] =
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 static const char drun[] = {"dmenu_run"};
-static const char rel[] = {"make -C ~/.config/dwm install > ~/.cache/dwmoutput && pkill dwm || st bash -c \"less /home/kirito/.cache/dwmoutput\""};
+static const char rel[] = {"dwm_reload"};
 static const char edit[] = {"vimmer"};
 static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
@@ -105,12 +105,14 @@ static const char searchl[] = {"search -l"};
 static const char searcha[] = {"search -a"};
 static const char searchf[] = {"search -f"};
 static const char searchm[] = {"search -m"};
-static const char book[] = {"cd ~/storage; find . -type f -iname \"*.pdf\" -o -iname \"*.djvu\" 2>/dev/null | sort -bdfi | dmenu -l 30 | xargs -r -d '\n' zathura_tabbed"}; 
+static const char book[] = {"cd ~/storage; [ -s ~/.cache/booklist ] || find . -type f -iname \"*.pdf\" -o -iname \"*.djvu\" 2>/dev/null | sort -bdfi > ~/.cache/booklist; dmenu -l 30 < ~/.cache/booklist | xargs -r -d '\n' zathura_tabbed; find . -type f -iname \"*.pdf\" -o -iname \"*.djvu\" 2>/dev/null | sort -bdfi > ~/.cache/booklist"}; 
 static const char conf[] = {"finder ~/.config/ -maxdepth 2 | dmenu -l 30 | xargs -r vimmer"};
 static const char bryti[] = {"light -A 1 && brightness-show"};
 static const char brytd[] = {"light -U 1 && brightness-show"};
-static const char voli[] = {"amixer set Master unmute && amixer set Master 0.75db+ && pkill -SIGRTMIN+8 dwmblocks"};
-static const char vold[] = {"amixer set Master unmute && amixer set Master 0.75db- && pkill -SIGRTMIN+8 dwmblocks"};
+static const char voli[] =  {"volume -i 0.75 "};
+static const char vold[] =  {"volume -d 0.75"};
+static const char volil[] = {"volume -i 10 "};
+static const char voldl[] = {"volume -d 10"};
 static const char calc[] = {"st -c 'float-term' -g 130x30 qalc"};
 static const char delwall[] = {"cat $HOME/.cache/wallpaper | xargs rm && (find /storage/walls/* | shuf -n 1 | xargs -d $'\n' sh -c 'for arg do hsetroot cover $arg; echo $arg > $HOME/.cache/wallpaper; done' _) || notify-send 'Failed to delete wallpaper'"};
 static const char song[] = {"song-select"};
@@ -127,7 +129,7 @@ static const char reb[] = {"loginctl reboot || systemctl reboot"};
 static const char vimrc[] = {"vimmer ~/.vim/vimrc"};
 static const char killwin[] = {"killwin"};
 static const char killx[] = {"pkill xinit"};
-static const char open[] = {"cat ~/.cache/finderlist | dmenu -f -l 30 | xargs geany"};
+static const char open[] = {"cat ~/.cache/finderlist | dmenu -f -l 30 | xargs vimmer; finder ~ | sort &> ~/.cache/finderlist"};
 static Key keys[] = {
 	{ MODKEY|ControlMask,			XK_b,      			togglebar,      	{0} },
 	{ MODKEY,                       	XK_Right,  			focusstack,     	{.i = +1 } },
@@ -194,6 +196,8 @@ static Key keys[] = {
         { MODKEY|ShiftMask,            		XK_period,  		spawn,       		SHCMD(brytd) },
 	{ MODKEY|ControlMask,          		XK_comma,  			spawn,        		SHCMD(voli) },
 	{ MODKEY|ControlMask,          		XK_period,  		spawn,        		SHCMD(vold) },
+	{ MODKEY|Mod1Mask,          		XK_comma,  			spawn,        		SHCMD(volil) },
+	{ MODKEY|Mod1Mask,          		XK_period,  		spawn,        		SHCMD(voldl) },
         { MODKEY ,  				XK_c,  				spawn,  			SHCMD(calc) },
         { MODKEY|ShiftMask,              	XK_Delete,  		spawn,       		SHCMD(delwall) },
         { MODKEY,                       	XK_d,       		spawn,     	   		SHCMD(song) },
