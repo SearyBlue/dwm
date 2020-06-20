@@ -28,7 +28,7 @@ static const Rule rules[] = {
 	// class     instance   title                  tag              swtch   cent   float    mon
         { "firefox", "Navigator", "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
         { "Firefox", "Navigator", "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
-	{ "Waterfox","Navigator",  "Waterfox Current",  1<<0,           1,      1,      0,      -1 },
+	{ "waterfox-current","Navigator",  "Waterfox Current",  1<<0,           1,      1,      0,      -1 },
 	{ "st-256color",	"st",    "ranger",	1<<1,           1,      1,      0,      -1 },
 	{ "st-256color","st",     "st",                 1<<2,           1,      1,      0,      -1 },
 	{ "st-256color",  "VIM SERVER",  NULL,  	1<<3,           1,      1,      0,      -1 },
@@ -69,10 +69,10 @@ static const Layout layouts[] =
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-static const char drun[] = {"dmenu_run"};
+static const char drun[] = {"dmenu_run -l 30"};
 static const char rel[] = {"dwm_reload"};
 static const char edit[] = {"vimmer"};
-static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox"};
+static const char surf[] = {"wmctrl -a 'Mozilla Firefox' || firefox-beta"};
 static const char office[] = {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
 static const char file[] = {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger"};
 static const char forcefile[] = {"st ranger"};
