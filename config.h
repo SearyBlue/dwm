@@ -75,6 +75,7 @@ static const Layout layouts[] =
 
 static const char drun[] 	= {"dmenu_run -l 30"};
 static const char rel[] 	= {"dwm_reload"};
+static const char killdunst[] 	= {"killall dunst"};
 static const char edit[] 	= {"vimmer"};
 static const char surf[] 	= {"wmctrl -xa 'chromium-snapshot-bin' || chromium-snapshot-bin"};
 static const char office[] 	= {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
@@ -194,6 +195,7 @@ static Key keys[] = {
         { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   	SHCMD(reb) },
 	{ MODKEY,             			XK_x,      		killclient,     		{0} },
 	{ MODKEY|ControlMask,  			XK_n,      		spawn,     		SHCMD(note) },
+	{ MODKEY,  				XK_BackSpace,     	spawn,     		SHCMD(killdunst) },
 };
 
 static Button buttons[] = {
