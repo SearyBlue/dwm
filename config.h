@@ -25,24 +25,21 @@ static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📙", "📉", "
 //static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
 
 static const Rule rules[] = {
-	// class     instance   title                  tag                    swtch   cent     float    mon
-        { "firefox", "Navigator", "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
-        { "Chromium", "chromium", "Chromium",       		1<<0,           1,      1,      0,      -1 },
-	{"chromium-snapshot-bin", "chromium-snapshot-bin", "Chromium",1<<0,	1,      1,      0,      -1 },
-        { "firefox", "Navigator", "Mozilla Firefox",       	1<<0,           1,      1,      0,      -1 },
-        { "Brave-browser", "brave-browser", "Brave",       	1<<0,           1,      1,      0,      -1 },
-	{ "waterfox-current","Navigator",  "Waterfox Current",  1<<0,           1,      1,      0,      -1 },
+	// class        instance         title                  tag            swtch   cent     float    mon
+	{ "Google-chrome", "google-chrome", NULL,		1<<0,		1,      1,      0,      -1 },
 	{ "st-256color",	"st",    "ranger",		1<<1,           1,      1,      0,      -1 },
 	{ "st-256color",	"st",    "lf",			1<<1,           1,      1,      0,      -1 },
 	{ "st-256color","st",     "st",                 	1<<2,           1,      1,      0,      -1 },
-	{ "st-256color",  "VIM SERVER",  NULL,  		1<<3,           1,      1,      0,      -1 },
-	{ "tabbed", "zathura",       NULL,       		1<<4,           1,      1,      0,      -1 },
+	{ "st-256color",  "VIM_SERVER",  NULL,  		1<<3,           1,      1,      0,      -1 },
+	{ "tabbed", "zathura",       NULL,       		1<<4,           1,      0,      1,      -1 },
+	{ "Zathura", "zathura",       NULL,       		1<<4,           1,      0,      1,      -1 },
+	{ "Evince", "evince",        NULL,       		1<<4,           1,      0,      1,      -1 },
 	{ "Transmission-gtk",NULL,       NULL,       		1<<5,           1,      1,      1,      -1 },
 	{ NULL, 	NULL,  "LibreOffice",   		1<<5,           1,      1,	0,      -1 },
 	{ "float-term",  	NULL,       NULL,       	0,              0,      1,	1,      -1 },
 	{ "st-256color",		NULL,        "mutt",    0,              0,      1,	1,      -1 },
 	{ NULL,     NULL,        "qalc",                	0,              0,      1,      1,      -1 },
-	{ "feh",	NULL,       NULL,        		0,              0,      1,	1,      -1 },
+	{ "feh",	NULL,       NULL,        		0,              0,      1,	0,      -1 },
 	{ "Display","display",  NULL,        			0,      	0,      1,	1,      -1 },
 	{ "Mtpaint",		NULL,       NULL,       	0,              0,      1,	1,      -1 },
 	{ "mpv",		NULL,       NULL,       	0,              0,      1,	0,      -1 },
@@ -73,29 +70,30 @@ static const Layout layouts[] =
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-static const char drun[] 	= {"dmenu_run -l 30"};
+static const char drun[] 	= {"dmenu_run"};
 static const char rel[] 	= {"dwm_reload"};
 static const char killdunst[] 	= {"killall dunst"};
 static const char edit[] 	= {"vimmer"};
-static const char surf[] 	= {"wmctrl -xa 'chromium-snapshot-bin' || chromium-snapshot-bin"};
-static const char office[] 	= {"wmctrl -a 'LibreOffice' || libreoffice6.4 --quickstart --nologo"};
-static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st lf') | awk '{print $1}' | xargs wmctrl -ia || st lf"};
+static const char surf[] 	= {"wmctrl -xa 'Google-chrome' || google-chrome-stable"};
+static const char office[] 	= {"wmctrl -a 'LibreOffice' || ~/storage/LibreOffice-still --quickstart --nologo"};
+static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger"};
 static const char forcefile[] 	= {"st ranger"};
 static const char term[] 	= {"wmctrl -lp | grep $(pgrep -fx -n 'st') | awk '{print $1}' | xargs wmctrl -ia || st"};
 static const char forceterm[] 	= {"st"};
 static const char net[] 	= {"(echo \"nmcli radio wifi on\"; echo \"nmcli radio wifi off\"; nmcli -t connection show | cut -d ':' -f1) | dmenu | head -n 1 | xargs -r network"};
+static const char musicstart[] 	= {"musicstart && pkill -SIGRTMIN+11 dwmblocks"};
 static const char seekb[] 	= {"mocp --seek -10"};
 static const char seekf[] 	= {"mocp --seek +10"};
 static const char seekbb[] 	= {"mocp --seek -50"};
 static const char seekfb[] 	= {"mocp --seek +50"};
 static const char nettogg[] 	= {"nmcli radio wifi | grep disable && nmcli radio wifi on || nmcli radio wifi off"};
 static const char sshot[] 	= {"scrot -zf -e '/usr/bin/feh  --scale-down $f; mv $f /home/kirito/storage/pictures'"};
-static const char sshoti[] 	= {"sleep 0.1; scrot -s zf -e '/usr/bin/feh  --scale-down $f; mv $f /home/kirito/storage/pictures'"};
+static const char sshoti[] 	= {"sleep 0.5; scrot -s -z -f -e '/usr/bin/feh  --scale-down $f; notify-send $f; mv $f /home/kirito/storage/pictures'"};
 static const char dwmconf[] 	= {"vimmer ~/.config/dwm/config.h"};
 static const char unm[] 	= {"unmount"};
 static const char mutt[] 	= {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
 static const char mnt[] 	= {"mount-all"};
-static const char rangconf[] 	= {"vimmer ~/.config/lf/lfrc"};
+static const char rangconf[] 	= {"vimmer ~/.config/ranger/rc.conf"};
 static const char taskm[] 	={"ps h -e -o comm,%cpu,%mem --sort -%mem | dmenu -l 20 | cut -d ' ' -f1 | xargs -r -n1 -d '\n' pkill"};
 static const char wall[] 	= {"/usr/bin/feh --bg-fill --randomize ~/storage/walls"};
 static const char book[] 	= {"open_book"}; 
@@ -108,7 +106,7 @@ static const char volil[] 	= {"volume -i 10 "};
 static const char voldl[] 	= {"volume -d 10"};
 static const char calc[] 	= {"st -c 'float-term' -g 130x30 qalc"};
 static const char song[] 	= {"song-select"};
-static const char comp[] 	= {"pkill picom; picom --experimental-backends"};
+static const char comp[] 	= {"pgrep picom && pkill picom || picom --experimental-backends -b"};
 static const char mocp[] 	= {"st mocp"};
 static const char plot[] 	= {"st -c 'float-term' -g 130x30 gnuplot"};
 static const char fulls[] 	= {"wmctrl -r :ACTIVE: -b toggle,fullscreen"};
@@ -150,6 +148,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,			XK_r,        		spawn,    		SHCMD(rel) },
 	{ MODKEY,                        	XK_s,     		spawn,       		SHCMD(edit) },
         { MODKEY,                        	XK_b,     		spawn,       		SHCMD(surf) },
+        { MODKEY,                        	XK_o,     		spawn,       		SHCMD(office) },
 	{ MODKEY,                        	XK_e,     		spawn,       		SHCMD(file) },
         { MODKEY|ShiftMask,              	XK_e,     		spawn,       		SHCMD(forcefile) },
         { MODKEY,                        	XK_t,        		spawn,       		SHCMD(term) },
@@ -189,13 +188,14 @@ static Key keys[] = {
         { MODKEY,                       	XK_Tab,       		spawn,       	   	SHCMD(change)},
         { MODKEY, 				XK_v,       		spawn,     	   	SHCMD(vimrc) },
         { MODKEY,		             	XK_l,       		spawn,     	   	SHCMD(lock) },
-        { MODKEY,                       	XK_p,       		spawn,     	   	SHCMD(unin) },
+        { MODKEY|ShiftMask,                     XK_p,       		spawn,     	   	SHCMD(unin) },
         { MODKEY|ShiftMask,              	XK_x,        		spawn,       	   	SHCMD(killx) },
         { MODKEY|ShiftMask,             	XK_s,       		spawn,     	   	SHCMD(zzz) },
         { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   	SHCMD(reb) },
 	{ MODKEY,             			XK_x,      		killclient,     		{0} },
 	{ MODKEY|ControlMask,  			XK_n,      		spawn,     		SHCMD(note) },
 	{ MODKEY,  				XK_BackSpace,     	spawn,     		SHCMD(killdunst) },
+	{ MODKEY,				XK_p,     		spawn,     		SHCMD(musicstart) },
 };
 
 static Button buttons[] = {
