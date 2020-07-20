@@ -27,15 +27,13 @@ static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📙", "📉", "
 static const Rule rules[] = {
 	// class        instance         title                  tag            swtch   cent     float    mon
 	{ "Google-chrome", "google-chrome", NULL,		1<<0,		1,      1,      0,      -1 },
-	{ "st-256color",	"st",    "ranger",		1<<1,           1,      1,      0,      -1 },
-	{ "st-256color",	"st",    "lf",			1<<1,           1,      1,      0,      -1 },
-	{ "st-256color","st",     "st",                 	1<<2,           1,      1,      0,      -1 },
+	{ "st-256color",   "st-256color",   "ranger",		1<<1,           1,      1,      0,      -1 },
+	{ "st-256color",   "st-256color",   "st",		1<<2,           1,      1,      0,      -1 },
 	{ "st-256color",  "VIM_SERVER",  NULL,  		1<<3,           1,      1,      0,      -1 },
-	{ "tabbed", "zathura",       NULL,       		1<<4,           1,      0,      1,      -1 },
-	{ "Zathura", "zathura",       NULL,       		1<<4,           1,      0,      1,      -1 },
-	{ "Evince", "evince",        NULL,       		1<<4,           1,      0,      1,      -1 },
+	{ "tabbed", "zathura",       NULL,       		1<<4,           1,      0,      0,      -1 },
 	{ "Transmission-gtk",NULL,       NULL,       		1<<5,           1,      1,      1,      -1 },
 	{ NULL, 	NULL,  "LibreOffice",   		1<<5,           1,      1,	0,      -1 },
+	{ "Evince", "evince",        NULL,       		1<<6,           1,      0,      0,      -1 },
 	{ "float-term",  	NULL,       NULL,       	0,              0,      1,	1,      -1 },
 	{ "st-256color",		NULL,        "mutt",    0,              0,      1,	1,      -1 },
 	{ NULL,     NULL,        "qalc",                	0,              0,      1,      1,      -1 },
@@ -74,6 +72,7 @@ static const char drun[] 	= {"dmenu_run"};
 static const char rel[] 	= {"dwm_reload"};
 static const char killdunst[] 	= {"killall dunst"};
 static const char edit[] 	= {"vimmer"};
+static const char record[] 	= {"rec_screen"};
 static const char surf[] 	= {"wmctrl -xa 'Google-chrome' || google-chrome-stable"};
 static const char office[] 	= {"wmctrl -a 'LibreOffice' || ~/storage/LibreOffice-still --quickstart --nologo"};
 static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger"};
@@ -194,6 +193,7 @@ static Key keys[] = {
         { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   	SHCMD(reb) },
 	{ MODKEY,             			XK_x,      		killclient,     		{0} },
 	{ MODKEY|ControlMask,  			XK_n,      		spawn,     		SHCMD(note) },
+	{ MODKEY|ControlMask,  			XK_r,      		spawn,     		SHCMD(record) },
 	{ MODKEY,  				XK_BackSpace,     	spawn,     		SHCMD(killdunst) },
 	{ MODKEY,				XK_p,     		spawn,     		SHCMD(musicstart) },
 };
