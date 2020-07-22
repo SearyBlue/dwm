@@ -28,16 +28,15 @@ static const Rule rules[] = {
 	// class        instance         title                  tag            swtch   cent     float    mon
 	{ "Google-chrome", "google-chrome", NULL,		1<<0,		1,      1,      0,      -1 },
 	{ "st-256color",   "st-256color",   "ranger",		1<<1,           1,      1,      0,      -1 },
-	{ "st-256color",   "st-256color",   "lfile",		1<<1,           1,      1,      0,      -1 },
+	{ NULL,		NULL,   	"lfile",		1<<1,           1,      1,      0,      -1 },
 	{ "st-256color",   "st-256color",   "st",		1<<2,           1,      1,      0,      -1 },
-	{ "st-256color",  "VIM_SERVER",  NULL,  		1<<3,           1,      1,      0,      -1 },
+	{ "Alacritty",   "Alacritty",   "Alacritty",		1<<2,           1,      1,      0,      -1 },
+	{ NULL,  	NULL,		"VIM_SERVER",		1<<3,           1,      1,      0,      -1 },
 	{ "tabbed", "zathura",       NULL,       		1<<4,           1,      0,      0,      -1 },
 	{ "Transmission-gtk",NULL,       NULL,       		1<<5,           1,      1,      1,      -1 },
 	{ NULL, 	NULL,  "LibreOffice",   		1<<5,           1,      1,	0,      -1 },
 	{ "Evince", "evince",        NULL,       		1<<6,           1,      0,      0,      -1 },
-	{ "float-term",  	NULL,       NULL,       	0,              0,      1,	1,      -1 },
-	{ "st-256color",		NULL,        "mutt",    0,              0,      1,	1,      -1 },
-	{ NULL,     NULL,        "qalc",                	0,              0,      1,      1,      -1 },
+	{ NULL,  	NULL, 	"float-term",       		0,              0,      1,	1,      -1 },
 	{ "feh",	NULL,       NULL,        		0,              0,      1,	0,      -1 },
 	{ "Display","display",  NULL,        			0,      	0,      1,	1,      -1 },
 	{ "Mtpaint",		NULL,       NULL,       	0,              0,      1,	1,      -1 },
@@ -74,12 +73,13 @@ static const char rel[] 	= {"dwm_reload"};
 static const char killdunst[] 	= {"killall dunst"};
 static const char edit[] 	= {"vimmer"};
 static const char record[] 	= {"rec_screen"};
+
 static const char surf[] 	= {"wmctrl -xa 'Google-chrome' || google-chrome-stable"};
 static const char office[] 	= {"wmctrl -a 'LibreOffice' || ~/storage/LibreOffice-still --quickstart --nologo"};
-static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -a 'lfile' || st -t 'lfile' lf"};
-static const char forcefile[] 	= {"st -t 'lfile' lf"};
-static const char term[] 	= {"wmctrl -lp | grep $(pgrep -fx -n 'st') | awk '{print $1}' | xargs wmctrl -ia || st"};
-static const char forceterm[] 	= {"st"};
+static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -a 'lfile' || alacritty -t 'lfile' -e lf"};
+static const char forcefile[] 	= {"alacritty -t 'lfile' -e lf"};
+static const char term[] 	= {"wmctrl -Fa Alacritty || alacritty"};
+static const char forceterm[] 	= {"alacritty"};
 static const char net[] 	= {"(echo \"nmcli radio wifi on\"; echo \"nmcli radio wifi off\"; nmcli -t connection show | cut -d ':' -f1) | dmenu | head -n 1 | xargs -r network"};
 static const char musicstart[] 	= {"musicstart && pkill -SIGRTMIN+11 dwmblocks"};
 static const char seekb[] 	= {"mocp --seek -10"};
@@ -91,7 +91,8 @@ static const char sshot[] 	= {"scrot -zf -e '/usr/bin/feh  --scale-down $f; mv $
 static const char sshoti[] 	= {"sleep 0.5; scrot -s -z -f -e '/usr/bin/feh  --scale-down $f; notify-send $f; mv $f /home/kirito/storage/pictures'"};
 static const char dwmconf[] 	= {"vimmer ~/.config/dwm/config.h"};
 static const char unm[] 	= {"unmount"};
-static const char mutt[] 	= {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
+//static const char mutt[] 	= {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
+static const char mutt[] 	= {"wmctrl -Fa mutt || alacritty -d 100 25 --position 350 200 -t float-term -e mutt"};
 static const char mnt[] 	= {"mount-all"};
 static const char rangconf[] 	= {"vimmer ~/.config/lf/lfrc"};
 static const char taskm[] 	={"ps h -e -o comm,%cpu,%mem --sort -%mem | dmenu -l 20 | cut -d ' ' -f1 | xargs -r -n1 -d '\n' pkill"};
@@ -104,16 +105,15 @@ static const char voli[] 	= {"volume -i 0.75 "};
 static const char vold[] 	= {"volume -d 0.75"};
 static const char volil[] 	= {"volume -i 10 "};
 static const char voldl[] 	= {"volume -d 10"};
-static const char calc[] 	= {"st -c 'float-term' -g 130x30 qalc"};
+static const char calc[] 	= {"alacritty -t 'float-term' -d 100 25 --position 350 200  -e qalc"};
 static const char song[] 	= {"song-select"};
 static const char comp[] 	= {"pgrep picom && pkill picom || picom --experimental-backends -b"};
-static const char mocp[] 	= {"st mocp"};
-static const char plot[] 	= {"st -c 'float-term' -g 130x30 gnuplot"};
+static const char mocp[] 	= {"alacritty mocp"};
 static const char fulls[] 	= {"wmctrl -r :ACTIVE: -b toggle,fullscreen"};
 static const char change[] 	= {"wmctrl -l | dmenu -l 10 | cut -d ' ' -f1 | xargs -r wmctrl -ia"};
 static const char firepref[] 	= {"firefox --preferences"};
 static const char lock[] 	= {"slock"};
-static const char unin[] 	= {"st -c 'float-term' -g 50x30 bash -c \"yay -Qttq | fzf | xargs -r yay -Rns -\""};
+static const char unin[] 	= {"alacritty -t 'float-term' -e bash -c 'yay -Qttq | fzf | xargs -r yay -Rns -'"};
 static const char zzz[] 	= {"loginctl suspend || systemctl suspend -i"};
 static const char reb[] 	= {"loginctl reboot || systemctl reboot"};
 static const char vimrc[] 	= {"vimmer ~/.vim/vimrc"};
@@ -182,7 +182,6 @@ static Key keys[] = {
         { MODKEY,				XK_Home,    		spawn,     	   	SHCMD(mocp) },
         { MODKEY,				XK_period,    		spawn,     	   	SHCMD("mocp --next") },
         { MODKEY,				XK_comma,    		spawn,     	   	SHCMD("mocp --prev") },
-        { MODKEY|ShiftMask,			XK_p,       		spawn,     	   	SHCMD(plot) },
         { MODKEY,                       	XK_f,       		spawn,     	   	SHCMD(fulls) },
         { MODKEY,                       	XK_Insert,     		spawn,     	   	SHCMD("mail-show && notify-send 'Checked Mail'") },
         { MODKEY,                       	XK_Tab,       		spawn,       	   	SHCMD(change)},
