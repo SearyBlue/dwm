@@ -28,6 +28,7 @@ static const Rule rules[] = {
 	// class        instance         title                  tag            swtch   cent     float    mon
 	{ "Google-chrome", "google-chrome", NULL,		1<<0,		1,      1,      0,      -1 },
 	{ "st-256color",   "st-256color",   "ranger",		1<<1,           1,      1,      0,      -1 },
+	{ "st-256color",   "st-256color",   "lfile",		1<<1,           1,      1,      0,      -1 },
 	{ "st-256color",   "st-256color",   "st",		1<<2,           1,      1,      0,      -1 },
 	{ "st-256color",  "VIM_SERVER",  NULL,  		1<<3,           1,      1,      0,      -1 },
 	{ "tabbed", "zathura",       NULL,       		1<<4,           1,      0,      0,      -1 },
@@ -75,8 +76,8 @@ static const char edit[] 	= {"vimmer"};
 static const char record[] 	= {"rec_screen"};
 static const char surf[] 	= {"wmctrl -xa 'Google-chrome' || google-chrome-stable"};
 static const char office[] 	= {"wmctrl -a 'LibreOffice' || ~/storage/LibreOffice-still --quickstart --nologo"};
-static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -lp | grep $(pgrep -fx -n 'st ranger') | awk '{print $1}' | xargs wmctrl -ia || st ranger"};
-static const char forcefile[] 	= {"st ranger"};
+static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -a 'lfile' || st -t 'lfile' lf"};
+static const char forcefile[] 	= {"st -t 'lfile' lf"};
 static const char term[] 	= {"wmctrl -lp | grep $(pgrep -fx -n 'st') | awk '{print $1}' | xargs wmctrl -ia || st"};
 static const char forceterm[] 	= {"st"};
 static const char net[] 	= {"(echo \"nmcli radio wifi on\"; echo \"nmcli radio wifi off\"; nmcli -t connection show | cut -d ':' -f1) | dmenu | head -n 1 | xargs -r network"};
@@ -92,7 +93,7 @@ static const char dwmconf[] 	= {"vimmer ~/.config/dwm/config.h"};
 static const char unm[] 	= {"unmount"};
 static const char mutt[] 	= {"wmctrl -Fa mutt || st -g 100x25+350+200 mutt"};
 static const char mnt[] 	= {"mount-all"};
-static const char rangconf[] 	= {"vimmer ~/.config/ranger/rc.conf"};
+static const char rangconf[] 	= {"vimmer ~/.config/lf/lfrc"};
 static const char taskm[] 	={"ps h -e -o comm,%cpu,%mem --sort -%mem | dmenu -l 20 | cut -d ' ' -f1 | xargs -r -n1 -d '\n' pkill"};
 static const char wall[] 	= {"/usr/bin/feh --bg-fill --randomize ~/storage/walls"};
 static const char book[] 	= {"open_book"}; 
