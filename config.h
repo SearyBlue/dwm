@@ -21,8 +21,8 @@ static const char *colors[][3]      =
 	[SchemeSel]  = { col_gray3, col_gray1,  col_cyan  },
 };
 
-//static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📙", "📉", "🗑 "};
-static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
+static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📙", "📉", "🗑 "};
+// static const char *tags[] = { "web", "file", "term", "edit",  "docs", "loff", "misc"};
 
 static const Rule rules[] = {
 	// class        instance         title                  tag            swtch   cent     float    mon
