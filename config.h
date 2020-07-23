@@ -37,7 +37,7 @@ static const Rule rules[] = {
 	{ NULL, 	NULL,  "LibreOffice",   		1<<5,           1,      1,	0,      -1 },
 	{ "Evince", "evince",        NULL,       		1<<6,           1,      0,      0,      -1 },
 	{ NULL,  	NULL, 	"float-term",       		0,              0,      1,	1,      -1 },
-	{ "feh",	NULL,       NULL,        		0,              0,      1,	0,      -1 },
+	{ "feh",	NULL,       NULL,        		0,              0,      1,	1,      -1 },
 	{ "Display","display",  NULL,        			0,      	0,      1,	1,      -1 },
 	{ "Mtpaint",		NULL,       NULL,       	0,              0,      1,	1,      -1 },
 	{ "mpv",		NULL,       NULL,       	0,              0,      1,	0,      -1 },
