@@ -74,7 +74,7 @@ static const char killdunst[] 	= {"killall dunst"};
 static const char edit[] 	= {"vimmer"};
 static const char record[] 	= {"rec_screen"};
 
-static const char surf[] 	= {"wmctrl -xa 'Google-chrome' || google-chrome-stable"};
+static const char surf[] 	= {"wmctrl -xa 'Google-chrome' || google-chrome-beta"};
 static const char office[] 	= {"wmctrl -a 'LibreOffice' || ~/storage/LibreOffice-still --quickstart --nologo"};
 static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -a 'lfile' || alacritty -t 'lfile' -e lf"};
 static const char forcefile[] 	= {"alacritty -t 'lfile' -e lf"};
