@@ -29,7 +29,7 @@ static const Rule rules[] = {
 	{ NULL, "fileman",   		NULL,		1<<1,           1,      1,      0,      -1 },
 	{ NULL, "terminal",   		NULL,		1<<2,           1,      1,      0,      -1 },
 	{ NULL, "editor",		NULL,		1<<3,           1,      1,      0,      -1 },
-	{ NULL, "zathura",       	NULL,		1<<4,           1,      0,      0,      -1 },
+	{ "tabbed", NULL,       	NULL,		1<<4,           1,      0,      0,      -1 },
 	{ NULL, "evince",       	NULL,		1<<4,           1,      0,      0,      -1 },
 	{ NULL, "libreoffice",  	NULL,		1<<5,           1,      1,	0,      -1 },
 	{ NULL, "transmission-gtk",     NULL,		1<<5,           1,      1,      1,      -1 },
