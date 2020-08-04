@@ -32,6 +32,7 @@ static const Rule rules[] = {
 	{ "tabbed", NULL,       	NULL,		1<<4,           1,      0,      0,      -1 },
 	{ NULL, "evince",       	NULL,		1<<4,           1,      0,      0,      -1 },
 	{ NULL, "libreoffice",  	NULL,		1<<5,           1,      1,	0,      -1 },
+	{ NULL, "org.inkscape.Inkscape",NULL,		1<<5,           1,      1,      0,      -1 },
 	{ NULL, "transmission-gtk",     NULL,		1<<5,           1,      1,      1,      -1 },
 	{ NULL, "floatterm", 		NULL,		0,              0,      1,	1,      -1 },
 	{ NULL,	"feh",       		NULL,		0,              0,      1,	1,      -1 },
@@ -64,6 +65,7 @@ static const char rel[] 	= {"dwm_reload"};
 static const char killdunst[] 	= {"killall dunst"};
 static const char edit[] 	= {"vimmer"};
 static const char record[] 	= {"rec_screen"};
+static const char inkscape[] 	= {"inkscape"};
 static const char surf[] 	= {"wmctrl -xa 'Google-chrome' || google-chrome-beta"};
 static const char office[] 	= {"wmctrl -a 'LibreOffice' || ~/storage/LibreOffice-still --quickstart --nologo"};
 static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -Fa 'fileman' || wmctrl -a 'VIM_ALONE' || st -n 'fileman' -t 'fileman' lf"};
@@ -183,6 +185,7 @@ static Key keys[] = {
         { MODKEY|ShiftMask,              	XK_x,        		spawn,       	   	SHCMD(killx) },
         { MODKEY|ShiftMask,             	XK_s,       		spawn,     	   	SHCMD(zzz) },
         { MODKEY|ShiftMask,             	XK_y,       		spawn,     	   	SHCMD(reb) },
+        { MODKEY|ShiftMask,             	XK_i,       		spawn,     	   	SHCMD(inkscape) },
 	{ MODKEY,             			XK_x,      		killclient,     		{0} },
 	{ MODKEY|ControlMask,  			XK_n,      		spawn,     		SHCMD(note) },
 	{ MODKEY|ControlMask,  			XK_r,      		spawn,     		SHCMD(record) },
