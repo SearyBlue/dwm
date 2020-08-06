@@ -8,7 +8,7 @@ static const int showsystray        = 1;
 static const int showbar            = 1;        
 static const int topbar             = 1;        
 
-static const char *fonts[]          = {"Fira Code:size=12:style=semibold", "JoyPixels:pixelsize=17:antialias=true:autohint=true","Iosevka Nerd Font:size=13"};
+static const char *fonts[]          = {"Fira Code:size=12", "JoyPixels:pixelsize=17:antialias=true:autohint=true","Iosevka Nerd Font:size=13"};
 static const char col_gray1[]       = "#333333";
 static const char col_cyan[]        = "#3377aa";
 static const char col_gray3[]       = "#fff";
