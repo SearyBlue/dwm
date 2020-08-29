@@ -113,8 +113,8 @@ struct Client {
 	int bw, oldbw;
 	unsigned int tags;
 	unsigned int switchtotag;
-	// int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
-	int isfixed, iscentered, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+	// int isfixed, iscentered, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
 	int floatborderpx;
 	Client *next;
 	Client *snext;
@@ -161,7 +161,7 @@ typedef struct {
 	const char *title;
 	unsigned int tags;
 	unsigned int switchtotag;
-	int iscentered;
+	// int iscentered;
 	int isfloating;
 	int monitor;
 	int floatx, floaty, floatw, floath;
@@ -343,7 +343,7 @@ applyrules(Client *c)
 		&& (!r->class || strstr(class, r->class))
 		&& (!r->instance || strstr(instance, r->instance)))
 		{
-			c->iscentered = r->iscentered;
+			// c->iscentered = r->iscentered;
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
 			c->floatborderpx = r->floatborderpx;
