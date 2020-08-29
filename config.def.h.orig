@@ -24,26 +24,26 @@ static const char *colors[][3]      =
 static const char *tags[] = { "🌎", "💼", "🛡", "📝",  "📙", "📉", "🗑 "};
 
 static const Rule rules[] = {
-	// class        instance         title          tag            swtch   cent     float    mon  float x,y,w,h         floatborderpx*/
+	// class        instance         title          tag            swtch   cent     float    mon
 	{ NULL, "google-chrome-beta", 	NULL,		1<<0,		1,      1,      0,      -1 },
 	{ NULL, "fileman",   		NULL,		1<<1,           1,      1,      0,      -1 },
 	{ NULL, "terminal",   		NULL,		1<<2,           1,      1,      0,      -1 },
 	{ NULL, "editor",		NULL,		1<<3,           1,      1,      0,      -1 },
 	{ "tabbed", NULL,       	NULL,		1<<4,           1,      0,      0,      -1 },
-	{ NULL, "evince",       	NULL,		1<<4,           1,      1,      1,      -1, 	0,0,1920,1080,		0},
+	{ NULL, "evince",       	NULL,		1<<4,           1,      1,      1,      -1 },
 	{ NULL, "libreoffice",  	NULL,		1<<5,           1,      1,	0,      -1 },
 	{ NULL, "org.inkscape.Inkscape",NULL,		1<<5,           1,      1,      0,      -1 },
 	{ NULL, "transmission-gtk",     NULL,		1<<5,           1,      1,      1,      -1 },
 	{ NULL, "floatterm", 		NULL,		0,              0,      1,	1,      -1 },
 	{ NULL,	"feh",       		NULL,		0,              0,      1,	1,      -1 },
 	{ NULL, "lxappearance",		NULL,		0,              0,      1,	1,      -1 },
-	{ NULL, "nm-connection-editor", NULL,		0,              0,      1,	1,      -1 }, 
+	{ NULL, "nm-connection-editor", NULL,		0,              0,      1,	1,      -1 },
 	{ NULL, "matplotlib", 		NULL,		0,              0,      1,	1,      -1 },
-};                                                                                                 
+};
 
 static const float mfact     = 0.5;
 static const int nmaster     = 1;  
-static const int resizehints = 0;  
+static const int resizehints = 1;  
 static const Layout layouts[] = 
 {
 	{ "[]=",      tile },    /* first entry is default */
