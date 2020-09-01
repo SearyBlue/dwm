@@ -31,14 +31,16 @@ static const Rule rules[] = {
 	{ NULL, "editor",		NULL,		1<<3,           1,    0,      -1 },
 	{ "tabbed", NULL,       	NULL,		1<<4,           1,    0,      -1 },
 	{ NULL, "evince",       	NULL,		1<<4,           1,    1,      -1, 	0,30,1920,1050,		0},
+	{ NULL, "llpp",       	     	NULL,		0,           	1,    0,      -1 },
+	{ NULL, "llpp",       	     "llpp ",		1<<4,           1,    1,      -1, 	0,30,1920,1050,		0},
 	{ NULL, "libreoffice",  	NULL,		1<<5,           1,    0,      -1 },
 	{ NULL, "org.inkscape.Inkscape",NULL,		1<<5,           1,    0,      -1 },
-	{ NULL, "transmission-gtk",     NULL,		1<<5,           1,    1,      -1 },
-	{ NULL, "floatterm", 		NULL,		0,              0,    1,      -1 },
-	{ NULL,	"feh",       		NULL,		0,              0,    1,      -1 },
-	{ NULL, "lxappearance",		NULL,		0,              0,    1,      -1 },
-	{ NULL, "nm-connection-editor", NULL,		0,              0,    1,      -1 }, 
-	{ NULL, "matplotlib", 		NULL,		0,              0,    1,      -1 },
+	{ NULL, "transmission-gtk",     NULL,		1<<5,           1,    1,      -1 , 	0,30,1920,1050,		0},
+	{ NULL, "floatterm", 		NULL,		0,              0,    1,      -1 , 	460,100,1000,800,		0},
+	{ NULL,	"feh",       		NULL,		0,              0,    1,      -1 , 	0,30,1920,1050,		0},
+	{ NULL, "lxappearance",		NULL,		0,              0,    1,      -1 , 	0,30,1920,1050,		0},
+	{ NULL, "nm-connection-editor", NULL,		0,              0,    1,      -1 , 	0,30,1920,1050,		0}, 
+	{ NULL, "matplotlib", 		NULL,		0,              0,    1,      -1 , 	0,30,1920,1050,		0},
 };                                                                                                 
 
 static const float mfact     = 0.5;
@@ -72,8 +74,7 @@ static const char file[] 	= {"wmctrl -x -a mpv || wmctrl -Fa 'fileman' || wmctrl
 static const char forcefile[] 	= {"st -n 'fileman' -t 'fileman' lf"};
 static const char term[] 	= {"wmctrl -Fa terminal || st -n terminal -t terminal"};
 static const char forceterm[] 	= {"st -n terminal -t terminal"};
-static const char net[] 	= {"(echo \"nmcli radio wifi on\"; echo \"nmcli radio wifi off\";\
-				   nmcli -t connection show | cut -d ':' -f1) | dmenu | head -n 1 | xargs -r network"};
+static const char net[] 	= {"network"};
 static const char musicstart[] 	= {"musicstart && pkill -SIGRTMIN+11 dwmblocks"};
 static const char seekb[] 	= {"mocp --seek -10"};
 static const char seekf[] 	= {"mocp --seek +10"};
