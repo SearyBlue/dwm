@@ -41,6 +41,7 @@ static const Rule rules[] = {
 	{ NULL, "lxappearance",		NULL,		0,              0,    1,      -1 , 	0,30,1920,1050,		0},
 	{ NULL, "nm-connection-editor", NULL,		0,              0,    1,      -1 , 	0,30,1920,1050,		0}, 
 	{ NULL, "matplotlib", 		NULL,		0,              0,    1,      -1 , 	0,30,1920,1050,		0},
+	{ NULL, "dragon-drag-and-drop",	NULL,		~0,              0,    1,      -1 , 	0,30,1920,1050,		0},
 };                                                                                                 
 
 static const float mfact     = 0.5;
